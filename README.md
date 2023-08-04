@@ -1,34 +1,70 @@
-# Sample Hardhat Project
+# SuperPiccellCore Project
 
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, and a script that deploys that contract.
+This project is a demonstration of a full-stack dApp (decentralized application). The dApp allows for the creation and management of content on the Ethereum blockchain. It also provides a frontend built with React and Next.js for interacting with the smart contract and viewing the content.
 
-Try running some of the following tasks:
+## Features
+
+- Deployment of a smart contract to the Ethereum blockchain using Hardhat and ethers.js
+- Creation and management of content on the blockchain
+- Fetching and displaying the content on a React/Next.js frontend
+
+## Technologies Used
+
+- Hardhat
+- ethers.js
+- React
+- Next.js
+
+## Key Scripts
+
+To run the main tasks, use the following commands:
+
+Deploy the contract:
 
 ```shell
-npx hardhat help
-npx hardhat test
-REPORT_GAS=true npx hardhat test
-npx hardhat node
-npx hardhat run scripts/deploy.ts
-```
-
-```
-2023-07-31 Sepolia
 npx ts-node scripts/deploy.ts
-SuperPiccellCore contract deploy address 0x3bcCa64ba3DF10df521D12C954E7eB7349700924
-Transaction URL: https://sepolia.etherscan.io/tx/0x7e0b22161c76384ab2fa922d66ed86d644c62a60519940beaa91b92d81a6464a
-Deploy completed
 ```
 
-## Manage contents
+Manage contents:
 
-`npx ts-node scripts/manage.ts --contractAddress 0xYourContractAddress --action create --jsonFilePath /path/to/your/jsonfile.json`
+```shell
+npx ts-node scripts/manage.ts --contractAddress 0xYourContractAddress --action create --jsonFilePath /path/to/your/jsonfile.json
+```
 
-# Fetch all contents
-`npx ts-node scripts/fetch.ts --contractAddress 0xYourContractAddress`
+Fetch all contents:
 
-# Fetch contentType filter contents
-`npx ts-node scripts/fetch.ts --contractAddress 0xYourContractAddress --contentType Character`
+```shell
+npx ts-node scripts/fetch.ts --contractAddress 0xYourContractAddress
+```
 
-# Fetch a single content
-`npx ts-node scripts/fetch.ts --contractAddress 0xYourContractAddress --contentId 0`
+Fetch contents with a specific contentType:
+
+```shell
+npx ts-node scripts/fetch.ts --contractAddress 0xYourContractAddress --contentType Character
+```
+
+Fetch a single content:
+
+```shell
+npx ts-node scripts/fetch.ts --contractAddress 0xYourContractAddress --contentId 0
+```
+
+## Building and Running the Frontend
+
+Install dependencies:
+
+```shell
+yarn install
+```
+
+Run the development server:
+
+```shell
+yarn dev
+```
+
+Build the application for production:
+
+```shell
+yarn build
+```
