@@ -16,7 +16,7 @@ export default function Home() {
   const headerRef = useRef(null);
 
   useEffect(() => {
-    if (window.ethereum) {
+    if (typeof window !== 'undefined' && window.ethereum) {
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       setProvider(provider);
 
