@@ -1,0 +1,72 @@
+[
+    {
+        "encoding": "UTF-8",
+        "contentType": "Item",
+        "content": {
+            "name": "Super Piccell Protocol",
+            "alias": "SPP",
+            "headline": "Super Piccell Protocol",
+            "developer": "OIO (Kai Sawamura)",
+            "release_year": 2067,
+            "owner": "MMC (Multi-Metaverse Council)",
+            "description": "Super Piccell Protocol is a large-volume encrypted data ultra-high-speed transfer protocol developed by OIO co-founder \"Kai Sawamura\". After Kai's disappearance, Dr. Dyson took over this development project and released it. By introducing this protocol into MVCE (Multi-Verse Connect Engine), seamless transfer of large-volume cryptographic data in multi-metaverse becomes possible. In addition, when used in conjunction with MD (Material Digitizer), it will be possible to digitize materials and transfer them to the metaverse for use."
+        },
+        "revision": "Genesis"
+    },
+    {
+        "encoding": "UTF-8",
+        "contentType": "Item",
+        "content": {
+            "name": "Multi-Verse Connect Engine",
+            "alias": "MVCE",
+            "headline": "Multi-Verse Connect Engine",
+            "developer": "OIO",
+            "release_year": 2067,
+            "owner": "MMC (Multi-Metaverse Council)",
+            "description": "MVCE is a control system that interconnects multiple metaverse. The development team leader is Dr. Dyson. SPP (Super Piccell Protocol) is essential to the operation of the system."
+        },
+        "revision": "Genesis"
+    },
+    {
+        "encoding": "UTF-8",
+        "contentType": "Item",
+        "content": {
+            "name": "Material Digitizer",
+            "alias": "MD",
+            "headline": "Material Digitizer",
+            "developer": "OIO (Kai Sawamura, Miles Dyson)",
+            "release_year": 2067,
+            "owner": "MMC (Multi-Metaverse Council)",
+            "description": "Material Digitizer is a device that automatically converts matter into digital data. This digitized matter physically disappears from the real world. This converted data is stored in a distributed manner on a blockchain, resulting in a vast amount of on-chain data. This converted data can be freely transferred in a multi-metaverse via SPP (Super Piccell Protocol). Note that the use of this device on humans is prohibited."
+        },
+        "revision": "Genesis"
+    },
+    {
+        "encoding": "UTF-8",
+        "contentType": "Item",
+        "content": {
+            "name": "Embedded Artificial Intelligence Concierge",
+            "alias": "Ema",
+            "headline": "Artificial Intelligence Concierge",
+            "developer": "OIO",
+            "release_year": 2062,
+            "owner": "MMC (Multi-Metaverse Council)",
+            "description": "Ema is a concierge AI built into the TTMB (Tower the Metaverse Bridge) mainframe operating system. It monitors and manages the operational status of the MVCE, the usage of MD (material digitizer) and the transfer of conversion data."
+        },
+        "revision": "Genesis"
+    },
+    {
+        "encoding": "UTF-8",
+        "contentType": "Item",
+        "content": {
+            "name": "MoVir",
+            "alias": null,
+            "headline": "Walking VR Device",
+            "developer": "NMI",
+            "release_year": 2085,
+            "owner": null,
+            "description": "This is now a mainstream walking VR device. It consists of a special suit, shoes, gloves, headset, harness, and tracking board. It is very expensive, but it is common in 2097 for each person to own a VR device."
+        },
+        "revision": "Genesis"
+    }
+]

@@ -1,0 +1,80 @@
+[
+    {
+        "encoding": "UTF-8",
+        "contentType": "Location",
+        "content": {
+            "name": "Sawamura House",
+            "alias": "Maya's House",
+            "headline": null,
+            "address": "Hyakunincho, Shinjuku-ku, Tokyo",
+            "description": "This is the house where Maya, Kent and Lisa live. It is a rented house and the landlord is Haraboji.",
+            "note": null
+        },
+        "revision": "Genesis"
+    },
+    {
+        "encoding": "UTF-8",
+        "contentType": "Location",
+        "content": {
+            "name": "Pongle Bongle Store",
+            "alias": "Haraboji's Store",
+            "headline": null,
+            "address": "Shin-Okubo, Shinjuku-ku, Tokyo",
+            "description": "This is a convenience store and home of Haraboji. It is owned by Haraboji.",
+            "note": null
+        },
+        "revision": "Genesis"
+    },
+    {
+        "encoding": "UTF-8",
+        "contentType": "Location",
+        "content": {
+            "name": "Tower \"The Metaverse Bridge\"",
+            "alias": "TTMB",
+            "headline": null,
+            "address": "?",
+            "description": "This is a building that houses various devices and computers that connect several different metaverse through \"Multi-Verse Connect Engine\". The location of this building is said to be underground or on a remote island, but this information is not publicly available.",
+            "note": null
+        },
+        "revision": "Genesis"
+    },
+    {
+        "encoding": "UTF-8",
+        "contentType": "Location",
+        "content": {
+            "name": "Multi-Metaverse Council Headquarters Hall",
+            "alias": "MMC Capitol",
+            "headline": null,
+            "address": "Nag-won (Metaverse)",
+            "description": "This is the headquarters and meeting hall of Multi-Metaverse Council. Once a month, council members from all over the world gather here for plenary sessions.",
+            "note": null
+        },
+        "revision": "Genesis"
+    },
+    {
+        "encoding": "UTF-8",
+        "contentType": "Location",
+        "content": {
+            "name": "Nag-Won",
+            "alias": null,
+            "headline": "A Next-Generation Metaverse",
+            "address": "VR Space",
+            "description": "A next-generation metaverse developed by NMI, a VR device development company, and recently opened to the public. It provides users with a five-sense experience comparable to the real world, which is not possible in a conventional metaverse. In Chinese characters, it is called \"楽園\" (Paradise).",
+            "note": null
+        },
+        "revision": "Genesis"
+    },
+    {
+        "encoding": "UTF-8",
+        "contentType": "Location",
+        "content": {
+            "name": "Ovi-Wan",
+            "alias": null,
+            "headline": "A Pub in Metaverse \"Nag-Won\".",
+            "address": "Nag-won (Metaverse)",
+            "description": "This is a pub in the metaverse \"Nag-Won\". This is where the Sawamura family and Unchained caused a ruckus.",
+            "note": "\"Ovi-Wan\" is written in Chinese characters as \"澳比湾\"."
+        },
+        "revision": "Genesis"
+    }
+]

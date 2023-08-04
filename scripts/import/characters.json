@@ -1,0 +1,318 @@
+[
+    {
+        "encoding": "UTF-8",
+        "contentType": "Character",
+        "content": {
+            "name": "Kent",
+            "full_name": "Kent Sawamura",
+            "alias": "The Beard Daddy",
+            "headline": "Kent is the father of the main character Maya and husband of Lisa.",
+            "gender": "Male",
+            "age": 35,
+            "nationality": "Japan",
+            "breed": null,
+            "occupation": "System engineer",
+            "favorite_food": "Eel, Soba, Tempura",
+            "favorite_game": "Retro games from the 1990s, Bare Knuckle (Streets of Rage) - Mega Drive (GENESIS)",
+            "personality": "Serious and clumsy",
+            "admire": "Ian MacKaye",
+            "description": "Kent is Maya's father and Lisa's husband. He is an old geek who loves 1980s and 1990s pop culture and punk rock. He loved early HardCorePunk and was an avid fan of Straight Edge when he was younger. He is usually an average systems engineer. He works for Halliday Technologies, a subsidiary of OIO, where he primarily maintains \"Dapp\", which has become an obsolete technology. His mother died of an incurable illness during his childhood and his father disappeared."
+        },
+        "revision": "Genesis"
+    },
+    {
+        "encoding": "UTF-8",
+        "contentType": "Character",
+        "content": {
+            "name": "Maya",
+            "full_name": "Maya Sawamura",
+            "alias": "The Little Tokyo Girl",
+            "headline": "Maya is the main character of this story, a geek and gamer.",
+            "gender": "Female",
+            "age": 12,
+            "nationality": "Japan",
+            "breed": null,
+            "occupation": "Student (Grade 6)",
+            "favorite_food": "Sushi, Fried Food, Shortcake",
+            "favorite_game": "Retro games from the 1990s, Super Mario World - Super Nintendo",
+            "personality": "Angry and eccentric",
+            "admire": "Albert Einstein",
+            "description": "Maya is the daughter of Kent and Lisa. She is the protagonist of this story, a nerd and a gamer. She loves retro culture because of her father Kent. She is a genius with an IQ of 130, but she hates to study, has a short temper and few friends. She recently stopped going to school after a fight with a classmate.She got into a big fight with the members of the cyber resistance \"Unchained\" on the Metaverse to save her mother Lisa."
+        },
+        "revision": "Genesis"
+    },
+    {
+        "encoding": "UTF-8",
+        "contentType": "Character",
+        "content": {
+            "name": "Lisa",
+            "full_name": "Lisa Sawamura",
+            "alias": "The Volcano",
+            "headline": "Lisa is the mother of the main character Maya, Kent's wife.",
+            "gender": "Female",
+            "age": 36,
+            "nationality": "USA",
+            "breed": null,
+            "occupation": "Housewife",
+            "favorite_food": "Cheesecake, Sake",
+            "favorite_game": null,
+            "personality": "Mild-mannered",
+            "admire": null,
+            "description": "Lisa is the wife of Kent and mother of Maya. She is usually quiet, but when she gets angry, she is so scary that no one can handle her. She is not very good with IT and mechanical systems. On the day she attended her first Metaverse event, she got into a big fight with members of the cyber resistance \"Unchained\" in a pub. That incident led to Maya being pursued by this resistance."
+        },
+        "revision": "Genesis"
+    },
+    {
+        "encoding": "UTF-8",
+        "contentType": "Character",
+        "content": {
+            "name": "Haraboji",
+            "full_name": "Haraboji",
+            "alias": "The Wiseman",
+            "headline": "Haraboji is a convenience store owner near Maya's house.",
+            "gender": "Male",
+            "age": 91,
+            "nationality": "South Korea",
+            "breed": null,
+            "occupation": "Convenience store owner",
+            "favorite_food": "Grilled garlic, Kimchi",
+            "favorite_game": null,
+            "personality": "Stubborn and kind",
+            "admire": "Eric Hughes",
+            "description": "Haraboji is the owner of a convenience store near Maya's house. He is Kent's grandfather and Maya's great-grandfather. He is a foster parent for children who have no relatives. He is also Kent's foster parent after his mother died of illness when he was a child and his father disappeared. For some reason he knows a lot about the blockchain and metaverse situation. He is hiding something from Maya and Kent."
+        },
+        "revision": "Genesis"
+    },
+    {
+        "id": 5,
+        "encoding": "UTF-8",
+        "contentType": "Character",
+        "content": {
+            "name": "Sho",
+            "full_name": "Sho Nakamoto",
+            "alias": "The Origin",
+            "headline": "Sho is a mysterious figure who claims to be a descendant of Satoshi Nakamoto.",
+            "gender": "Male",
+            "age": null,
+            "nationality": "?",
+            "breed": null,
+            "occupation": "?",
+            "favorite_food": "?",
+            "favorite_game": null,
+            "personality": "?",
+            "admire": "?",
+            "description": "A mysterious figure who calls himself Sho Nakamoto and claims to be a descendant of Satoshi Nakamoto. He is believed to be the founding leader of the cyber resistance group \"Unchained\" but no one has actually confirmed his existence."
+        },
+        "revision": "Genesis"
+    },
+    {
+        "encoding": "UTF-8",
+        "contentType": "Character",
+        "content": {
+            "name": "Sona",
+            "full_name": "Sona Sawamura",
+            "alias": null,
+            "headline": "Sona is Kent's mother and daughter of Haraboji.",
+            "gender": "Female",
+            "age": null,
+            "nationality": "Japan",
+            "breed": null,
+            "occupation": null,
+            "favorite_food": null,
+            "favorite_game": null,
+            "personality": null,
+            "admire": null,
+            "description": "Sona is Haraboji's daughter and Kent's mother. She is a former Korean who became a naturalized Japanese citizen after marrying Kent's father, a Japanese man named \"Kai Sawamura\". She passed away from an incurable disease when Kent was very young."
+        },
+        "revision": "Genesis"
+    },
+    {
+        "encoding": "UTF-8",
+        "contentType": "Character",
+        "content": {
+            "name": "Chunyan",
+            "full_name": "Chunyan Chen",
+            "alias": "The Psycho",
+            "headline": "Chunyan is Yichen's older sister and a skilled programmer.",
+            "gender": "Female",
+            "age": 16,
+            "nationality": "China",
+            "breed": null,
+            "occupation": "Student (Grade 10)",
+            "favorite_food": "Wonton noodles, Beef dumplings",
+            "favorite_game": null,
+            "personality": "Cheerful and active",
+            "admire": "Sun Wu",
+            "description": "Chunyan is a high school student and a skilled programmer. She is friends with Maya and is like an older sister to her. Her biological younger brother is Yichen. She and younger brother Yichen have been under the care of Haraboji since their parents disappeared three years ago. Like Maya, she is also at odds with \"Unchained\"."
+        },
+        "revision": "Genesis"
+    },
+    {
+        "encoding": "UTF-8",
+        "contentType": "Character",
+        "content": {
+            "name": "Yichen",
+            "full_name": "Yichen Chen",
+            "alias": "The Wonder Kid",
+            "headline": "Yichen is Maya's childhood friend and the youngest councilor of the \"MMC\".",
+            "gender": "Male",
+            "age": 12,
+            "nationality": "China",
+            "breed": null,
+            "occupation": "Student (Grade 6)",
+            "favorite_food": "Rice cake rolls",
+            "favorite_game": null,
+            "personality": "Intelligent, Calm and collected",
+            "admire": "Confucius",
+            "description": "Yichen is Maya's classmate and childhood friend. He is the youngest councilor of \"MMC\". He is Chunyan's biological younger brother. He and his older sister Chunyan have been in the care of Haraboji since their parents disappeared three years ago. He often disagrees with his sister Chunyan. He believes that their parents abandoned them."
+        },
+        "revision": "Genesis"
+    },
+    {
+        "encoding": "UTF-8",
+        "contentType": "Character",
+        "content": {
+            "name": "Bryant",
+            "full_name": "Owen Bryant",
+            "alias": "The Bossman",
+            "headline": "Bryant is the second MMC Supreme Chairman and head of OIO.",
+            "gender": "Male",
+            "age": 66,
+            "nationality": "USA",
+            "breed": null,
+            "occupation": "Company owner",
+            "favorite_food": "Big Mac",
+            "favorite_game": null,
+            "personality": "Sly",
+            "admire": "?",
+            "description": "Bryant is the second Supreme Chairman of MMC. He is the de facto supreme authority of the multi-metaverse era. He is the current head of OIO, the company that developed MD (material digitizer). He is known as the man who led \"Super Piccell\" Project. He is concerned about Yichen, another council member whose parents disappeared."
+        },
+        "revision": "Genesis"
+    },
+    {
+        "encoding": "UTF-8",
+        "contentType": "Character",
+        "content": {
+            "name": "Mr. and Mrs. Chen",
+            "full_name": null,
+            "alias": null,
+            "headline": "Mr. and Mrs. Chen, who disappeared three years ago, are the parents of Chunyan and Yichen.",
+            "gender": null,
+            "age": null,
+            "nationality": "China",
+            "breed": null,
+            "occupation": "Company Employee, Engineer",
+            "favorite_food": null,
+            "favorite_game": null,
+            "personality": null,
+            "admire": null,
+            "description": "They are company employees and engineers at OIO, a company owned by Bryant. They were Dr. Dyson's subordinates. They disappeared three years ago, leaving behind two children, Chunyan and Yichen."
+        },
+        "revision": "Genesis"
+    },
+    {
+        "encoding": "UTF-8",
+        "contentType": "Character",
+        "content": {
+            "name": "Saariyah",
+            "full_name": "Saariyah Ayyad",
+            "alias": "Lo Pan",
+            "headline": "Saariyah is a government official and special agent.",
+            "gender": "Female",
+            "age": 32,
+            "nationality": "Brunei",
+            "breed": null,
+            "occupation": "Government Official, Special Agent",
+            "favorite_food": "Ambuyat",
+            "favorite_game": null,
+            "personality": "Elegant, Calm and collected",
+            "admire": "?",
+            "description": "Saariyah is believed to be a government official, but details are unknown. She is also believed to be in communication with Bryant. She is feared in the Metaverse as the evil sorceress \"Lo Pan\"."
+        },
+        "revision": "Genesis"
+    },
+    {
+        "encoding": "UTF-8",
+        "contentType": "Character",
+        "content": {
+            "name": "Dr. Dyson",
+            "full_name": "Miles Dyson",
+            "alias": "Zeus",
+            "headline": "Scientist and engineer Dr. Dyson is also a co-founder of OIO.",
+            "gender": "Male",
+            "age": 65,
+            "nationality": "United Kingdom",
+            "breed": null,
+            "occupation": "Scientist, Engineer",
+            "favorite_food": "Scone",
+            "favorite_game": null,
+            "personality": "Timid, Nervous",
+            "admire": "Adam Back, Stephen Hawking",
+            "description": "Dr. Dyson is a co-founder of the company that Bryant currently represents. He was once the development team leader for MVCE (Mult-Verse Connect Engine). He used to co-develop MD (Material Digitizer )with fellow OIO co-founder \"Sawamura Kai\". He has recently been removed from key positions at OIO and has not been seen since."
+        },
+        "revision": "Genesis"
+    },
+    {
+        "encoding": "UTF-8",
+        "contentType": "Character",
+        "content": {
+            "name": "Kai",
+            "full_name": "Kai Sawamura",
+            "alias": null,
+            "headline": "Kai is Kent's biological father and co-founder of OIO.",
+            "gender": "Male",
+            "age": null,
+            "nationality": "Japan",
+            "breed": null,
+            "occupation": "Scientist, Engineer",
+            "favorite_food": null,
+            "favorite_game": null,
+            "personality": null,
+            "admire": null,
+            "description": "Kai is Kent's biological father and Sona's husband. Co-founder of OIO, the company Bryant currently represents. He disappeared after the death of his wife Sona, leaving young Kent."
+        },
+        "revision": "Genesis"
+    },
+    {
+        "encoding": "UTF-8",
+        "contentType": "Character",
+        "content": {
+            "name": "Alice",
+            "full_name": "Alice Sawamura",
+            "alias": null,
+            "headline": "Alice is Maya's house cat.",
+            "gender": "Female",
+            "age": 13,
+            "nationality": "Japan",
+            "breed": "Mixed",
+            "occupation": null,
+            "favorite_food": "Pacific Saury",
+            "favorite_game": null,
+            "personality": "Contrarian",
+            "admire": null,
+            "description": "Alice is Maya's house cat. She was picked up by Kent soon after she was born on the street."
+        },
+        "revision": "Genesis"
+    },
+    {
+        "encoding": "UTF-8",
+        "contentType": "Character",
+        "content": {
+            "name": "Bobby",
+            "full_name": "Robert Lee",
+            "alias": null,
+            "headline": "Bobby is a dog that lives in Haraboji's house.",
+            "gender": "Male",
+            "age": null,
+            "nationality": "Japan",
+            "breed": "Shiba Inu",
+            "occupation": null,
+            "favorite_food": "Bones, Cabbage",
+            "favorite_game": null,
+            "personality": "Happy-go-lucky, Innocent",
+            "admire": null,
+            "description": "Bobby is a dog that lives in Haraboji's house. He came out of nowhere 2 years ago and has been living in Haraboji's home ever since."
+        },
+        "revision": "Genesis"
+    }
+]

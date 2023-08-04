@@ -1,0 +1,82 @@
+[
+    {
+        "encoding": "UTF-8",
+        "contentType": "Organization",
+        "content": {
+            "name": "Object Inovative Online",
+            "alias": "OIO",
+            "headline": "Object Inovative Online",
+            "founder": "Kai Sawamura, Miles Dyson",
+            "year_founded": 2057,
+            "number_of_members": 52534,
+            "representative": "Owen Bryant",
+            "description": "OIO is a tech company founded by Kai and Dr. Dyson in their youth. The organization is currently headed by Bryant, who is also the MMC Supreme Chairman. It is one of the world's leading tech companies with the development of \"Multi-Verse Connect Engine\" and \"Material Digitizer\".",
+            "note": null
+        },
+        "revision": "Genesis"
+    },
+    {
+        "encoding": "UTF-8",
+        "contentType": "Organization",
+        "content": {
+            "name": "?",
+            "alias": "Unchained",
+            "headline": "\"Unchained\" is a cyber resistance with an anti  MMC.",
+            "founder": "?",
+            "year_founded": null,
+            "number_of_members": null,
+            "representative": "?",
+            "description": "Unchained is a cyber-resistance group that is an anti MMC. It aims to hack and sabotage the systems and blockchains that interconnect the multi-metaverse. Its founding leader is Sho, who is believed to be comprised primarily of activists from the cypherpunk movement. It has been designated a terrorist organization by MMC and its member states.",
+            "note": "The members of the infamous \"Unchained\" have the same face, although their clothing is somewhat different. Rumor has it that they are artificial \"replicant\", with physical strength and intelligence greater than humans. They are believed to be engaged in terrorist activities that threaten the peace of the Metaverse, and the Council considers them a problem, and the Public Security Bureau is tracking their whereabouts."
+        },
+        "revision": "Genesis"
+    },
+    {
+        "encoding": "UTF-8",
+        "contentType": "Organization",
+        "content": {
+            "name": "Multi-Metaverse Council",
+            "alias": "MMC",
+            "headline": "Multi-Metaverse Council",
+            "founder": "Heads of Member States",
+            "year_founded": 2063,
+            "number_of_members": 512,
+            "representative": "Owen Bryant",
+            "description": "MMC is an international organization jointly established by member nations around the world to monitor and oversee the multi-metaverse. Its capitol and offices are located in the Metaverse. The current MMC Supreme Chairman (2nd) is Bryant, who also represents OIO. Multi-Metaverse is governed by its own laws enacted jointly by the member countries and has its own public security police force, the Metaverse Police.",
+            "note": null
+        },
+        "revision": "Genesis"
+    },
+    {
+        "encoding": "UTF-8",
+        "contentType": "Organization",
+        "content": {
+            "name": "Bit Icon Is Oaths",
+            "alias": "BIIO",
+            "headline": "BIIO is a mysterious secret society.",
+            "founder": "?",
+            "year_founded": null,
+            "number_of_members": null,
+            "representative": "?",
+            "description": "BIIO is a secret society on the Internet that is said to have existed since ancient times.",
+            "note": null
+        },
+        "revision": "Genesis"
+    },
+    {
+        "encoding": "UTF-8",
+        "contentType": "Organization",
+        "content": {
+            "name": "Neo Meta Industries",
+            "alias": "NMI",
+            "headline": "Neo Meta Industries",
+            "founder": "Seoyeon Koo, David Zuckerberg",
+            "year_founded": 2075,
+            "number_of_members": 274534,
+            "representative": "Seoyeon Koo",
+            "description": "Headquartered in Busan, South Korea, NMI is the world's number one developer and marketer of VR devices. The VR devices used by Maya and Kent are also NMI products.",
+            "note": null
+        },
+        "revision": "Genesis"
+    }
+]
