@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { ethers } from 'ethers';
 import { fetchContents } from '../utils/fetchContents';
 import Modal from 'react-modal';
@@ -16,60 +16,48 @@ export default function Home() {
   const headerRef = useRef(null);
 
   useEffect(() => {
-    async function setupProviderAndFetchContents() {
-      if (window.ethereum) {
-        const provider = new ethers.providers.Web3Provider(window.ethereum);
-        setProvider(provider);
-  
-        const network = await provider.getNetwork();
+    if (window.ethereum) {
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      setProvider(provider);
+
+      provider.getNetwork().then(network => {
         if (network.chainId !== parseInt(process.env.NEXT_PUBLIC_NETWORK_ID)) {
           alert(`Your wallet is connected to the wrong chain. Please switch to the ${process.env.NEXT_PUBLIC_NETWORK_NAME} chain.`);
         }
-  
-        // Add event listeners
-        window.ethereum.on('accountsChanged', async () => {
-          // When the accounts change, refresh the contents
-          setIsLoading(true);
-          try {
-            const contents = await fetchContents(provider);
-            setContents(contents);
-          } catch (error) {
-            console.error(error);
-          } finally {
-            setIsLoading(false);
-          }
-        });
-  
-        window.ethereum.on('chainChanged', async () => {
-          // When the network changes, refresh the contents
-          setIsLoading(true);
-          try {
-            const contents = await fetchContents(provider);
-            setContents(contents);
-          } catch (error) {
-            console.error(error);
-          } finally {
-            setIsLoading(false);
-          }
-        });
-  
-        // Fetch contents after setting up the provider and event listeners
+      });
+
+      // Add event listeners
+      window.ethereum.on('accountsChanged', () => {
+        // When the accounts change, refresh the contents
         setIsLoading(true);
-        try {
-          const contents = await fetchContents(provider);
-          setContents(contents);
-        } catch (error) {
-          console.error(error);
-        } finally {
-          setIsLoading(false);
-        }
-      } else {
-        alert('A wallet is not installed.');
-      }
+        fetchContents(provider)
+          .then(contents => {
+            setContents(contents);
+            setIsLoading(false);
+          })
+          .catch(error => {
+            console.error(error);
+            setIsLoading(false);
+          });
+      });
+
+      window.ethereum.on('chainChanged', () => {
+        // When the network changes, refresh the contents
+        setIsLoading(true);
+        fetchContents(provider)
+          .then(contents => {
+            setContents(contents);
+            setIsLoading(false);
+          })
+          .catch(error => {
+            console.error(error);
+            setIsLoading(false);
+          });
+      });
+    } else {
+      alert('A wallet is not installed.');
     }
-  
-    setupProviderAndFetchContents();
-  
+
     // Clean up the event listeners on component unmount
     return () => {
       if (window.ethereum) {
@@ -77,15 +65,15 @@ export default function Home() {
         window.ethereum.removeListener('chainChanged');
       }
     };
-  }, []);  
+  }, []);
 
-  const checkScrollTop = () => {
-    if (!showScroll && window.scrollY > 400) {
-      setShowScroll(true);
-    } else if (showScroll && window.scrollY <= 400) {
-      setShowScroll(false);
+  const checkScrollTop = useCallback(() => {
+    if (!showScroll && window.pageYOffset > 400){
+      setShowScroll(true)
+    } else if (showScroll && window.pageYOffset <= 400){
+      setShowScroll(false)
     }
-  };
+  }, [showScroll]);
 
   const scrollTop = () => {
     window.scrollTo({top: 0, behavior: 'smooth'});
@@ -94,7 +82,7 @@ export default function Home() {
   useEffect(() => {
     window.addEventListener('scroll', checkScrollTop)
     return () => window.removeEventListener('scroll', checkScrollTop)
-  }, []);
+  }, [checkScrollTop]);
 
   useEffect(() => {
     if (provider) {
