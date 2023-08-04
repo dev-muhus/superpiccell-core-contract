@@ -5,7 +5,6 @@ import { program, Option } from 'commander';
 import * as dotenv from 'dotenv';
 dotenv.config();
 
-// JSONファイルからデータを読み込む関数
 function readJsonContent(filePath: string) {
     const content = readFileSync(filePath, 'utf-8');
     return JSON.parse(content);
@@ -31,7 +30,7 @@ async function main(contractAddress: string, action: string, jsonFilePath: strin
         
         const contents = readJsonContent(jsonFilePath);
 
-        for (let content of contents) { // 配列をループします
+        for (let content of contents) {
             if (action === "create") {
                 const contentString = JSON.stringify(content.content);
                 const tx: ContractTransaction = await superPiccellCore.createContent(content.encoding, content.contentType, contentString, content.revision);
