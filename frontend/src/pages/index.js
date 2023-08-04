@@ -16,48 +16,60 @@ export default function Home() {
   const headerRef = useRef(null);
 
   useEffect(() => {
-    if (window.ethereum) {
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      setProvider(provider);
-
-      provider.getNetwork().then(network => {
+    async function setupProviderAndFetchContents() {
+      if (window.ethereum) {
+        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        setProvider(provider);
+  
+        const network = await provider.getNetwork();
         if (network.chainId !== parseInt(process.env.NEXT_PUBLIC_NETWORK_ID)) {
           alert(`Your wallet is connected to the wrong chain. Please switch to the ${process.env.NEXT_PUBLIC_NETWORK_NAME} chain.`);
         }
-      });
-
-      // Add event listeners
-      window.ethereum.on('accountsChanged', () => {
-        // When the accounts change, refresh the contents
-        setIsLoading(true);
-        fetchContents(provider)
-          .then(contents => {
+  
+        // Add event listeners
+        window.ethereum.on('accountsChanged', async () => {
+          // When the accounts change, refresh the contents
+          setIsLoading(true);
+          try {
+            const contents = await fetchContents(provider);
             setContents(contents);
-            setIsLoading(false);
-          })
-          .catch(error => {
+          } catch (error) {
             console.error(error);
+          } finally {
             setIsLoading(false);
-          });
-      });
-
-      window.ethereum.on('chainChanged', () => {
-        // When the network changes, refresh the contents
-        setIsLoading(true);
-        fetchContents(provider)
-          .then(contents => {
+          }
+        });
+  
+        window.ethereum.on('chainChanged', async () => {
+          // When the network changes, refresh the contents
+          setIsLoading(true);
+          try {
+            const contents = await fetchContents(provider);
             setContents(contents);
-            setIsLoading(false);
-          })
-          .catch(error => {
+          } catch (error) {
             console.error(error);
+          } finally {
             setIsLoading(false);
-          });
-      });
-    } else {
-      alert('A wallet is not installed.');
+          }
+        });
+  
+        // Fetch contents after setting up the provider and event listeners
+        setIsLoading(true);
+        try {
+          const contents = await fetchContents(provider);
+          setContents(contents);
+        } catch (error) {
+          console.error(error);
+        } finally {
+          setIsLoading(false);
+        }
+      } else {
+        alert('A wallet is not installed.');
+      }
     }
-
+  
+    setupProviderAndFetchContents();
+  
     // Clean up the event listeners on component unmount
     return () => {
       if (window.ethereum) {
@@ -65,13 +77,13 @@ export default function Home() {
         window.ethereum.removeListener('chainChanged');
       }
     };
-  }, []);
+  }, []);  
 
   const checkScrollTop = () => {
-    if (!showScroll && window.pageYOffset > 400){
-      setShowScroll(true)
-    } else if (showScroll && window.pageYOffset <= 400){
-      setShowScroll(false)
+    if (!showScroll && window.scrollY > 400) {
+      setShowScroll(true);
+    } else if (showScroll && window.scrollY <= 400) {
+      setShowScroll(false);
     }
   };
 
