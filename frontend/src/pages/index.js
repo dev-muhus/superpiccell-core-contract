@@ -17,42 +17,48 @@ export default function Home() {
 
   useEffect(() => {
     if (typeof window !== 'undefined' && window.ethereum) {
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      setProvider(provider);
+      window.ethereum.request({ method: 'eth_requestAccounts' })
+      .then(() => {
+        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        setProvider(provider);
 
-      provider.getNetwork().then(network => {
-        if (network.chainId !== parseInt(process.env.NEXT_PUBLIC_NETWORK_ID)) {
-          alert(`Your wallet is connected to the wrong chain. Please switch to the ${process.env.NEXT_PUBLIC_NETWORK_NAME} chain.`);
-        }
-      });
+        provider.getNetwork().then(network => {
+          if (network.chainId !== parseInt(process.env.NEXT_PUBLIC_NETWORK_ID)) {
+            alert(`Your wallet is connected to the wrong chain. Please switch to the ${process.env.NEXT_PUBLIC_NETWORK_NAME} chain.`);
+          }
+        });
 
-      // Add event listeners
-      window.ethereum.on('accountsChanged', () => {
-        // When the accounts change, refresh the contents
-        setIsLoading(true);
-        fetchContents(provider)
-          .then(contents => {
-            setContents(contents);
-            setIsLoading(false);
-          })
-          .catch(error => {
-            console.error(error);
-            setIsLoading(false);
-          });
-      });
+        // Add event listeners
+        window.ethereum.on('accountsChanged', () => {
+          // When the accounts change, refresh the contents
+          setIsLoading(true);
+          fetchContents(provider)
+            .then(contents => {
+              setContents(contents);
+              setIsLoading(false);
+            })
+            .catch(error => {
+              console.error(error);
+              setIsLoading(false);
+            });
+        });
 
-      window.ethereum.on('chainChanged', () => {
-        // When the network changes, refresh the contents
-        setIsLoading(true);
-        fetchContents(provider)
-          .then(contents => {
-            setContents(contents);
-            setIsLoading(false);
-          })
-          .catch(error => {
-            console.error(error);
-            setIsLoading(false);
-          });
+        window.ethereum.on('chainChanged', () => {
+          // When the network changes, refresh the contents
+          setIsLoading(true);
+          fetchContents(provider)
+            .then(contents => {
+              setContents(contents);
+              setIsLoading(false);
+            })
+            .catch(error => {
+              console.error(error);
+              setIsLoading(false);
+            });
+        });
+      })
+      .catch((error) => {
+        console.log(error);
       });
     } else {
       alert('A wallet is not installed.');
