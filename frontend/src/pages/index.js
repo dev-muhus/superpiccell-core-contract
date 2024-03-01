@@ -124,15 +124,19 @@ export default function Home() {
     >
       <button onClick={closeModal} className="close-button">X</button>
       {content && Object.entries(JSON.parse(content.content)).map(([key, value]) => {
-        let displayValue = '';
+        let displayElement;
         if (value === null) {
-          displayValue = '-';
+          displayElement = <p key={key}>{key}: -</p>;
+        } else if (key === 'image') {
+          displayElement = <p key={key}>{key}: <img src={value} alt="content" /></p>;
         } else if (Array.isArray(value)) {
-          displayValue = value.map(v => v === null ? '-' : (typeof v === 'string' ? parseJson(v) : v)).join(', ');
+          const displayValue = value.map(v => v === null ? '-' : (typeof v === 'string' ? parseJson(v) : v)).join(', ');
+          displayElement = <p key={key}>{key}: {displayValue}</p>;
         } else {
-          displayValue = typeof value === 'string' ? parseJson(value) : value;
+          const displayValue = typeof value === 'string' ? parseJson(value) : value;
+          displayElement = <p key={key}>{key}: {displayValue}</p>;
         }
-        return <p key={key}>{key}: {displayValue}</p>;
+        return displayElement;
       })}
     </Modal>
   )
