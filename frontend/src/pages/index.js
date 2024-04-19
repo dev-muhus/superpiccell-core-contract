@@ -10,8 +10,7 @@ export default function Home() {
   const [provider, setProvider] = useState(null);
   const [contents, setContents] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [modalContent, setModalContent] = useState(null);
-  const [modalIsOpen, setIsOpen] = useState(false);
+  const [expandedId, setExpandedId] = useState(null);
   const [showScroll, setShowScroll] = useState(false)
   const headerRef = useRef(null);
 
@@ -105,42 +104,10 @@ export default function Home() {
     }
   }, [provider]);
 
-  const openModal = (content) => {
-    setModalContent(content);
-    setIsOpen(true);
-  }
+  const toggleDetails = (id) => {
+    setExpandedId(expandedId === id ? null : id);
+  };
 
-  const closeModal = () => {
-    setIsOpen(false);
-  }
-
-  const ContentModal = ({ content }) => (
-    <Modal
-      isOpen={modalIsOpen}
-      onRequestClose={closeModal}
-      contentLabel="Content Modal"
-      className="Modal"
-      overlayClassName="Overlay"
-    >
-      <button onClick={closeModal} className="close-button">X</button>
-      {content && Object.entries(JSON.parse(content.content)).map(([key, value]) => {
-        let displayElement;
-        if (value === null) {
-          displayElement = <p key={key}>{key}: -</p>;
-        } else if (key === 'image') {
-          displayElement = <p key={key}>{key}: <img src={value} alt="content" /></p>;
-        } else if (Array.isArray(value)) {
-          const displayValue = value.map(v => v === null ? '-' : (typeof v === 'string' ? parseJson(v) : v)).join(', ');
-          displayElement = <p key={key}>{key}: {displayValue}</p>;
-        } else {
-          const displayValue = typeof value === 'string' ? parseJson(value) : value;
-          displayElement = <p key={key}>{key}: {displayValue}</p>;
-        }
-        return displayElement;
-      })}
-    </Modal>
-  )
-  
   function parseJson(value) {
     try {
       return JSON.parse(value);
@@ -153,7 +120,7 @@ export default function Home() {
 
   return (
     <div className="content-container">
-      <div className="content-header" style={{ zIndex: modalIsOpen ? -1 : 100 }} ref={headerRef}>
+      <div className="content-header" ref={headerRef}>
         <h1>SuperPiccellCore Contents</h1>
         {!isLoading && contentTypes.map(type => (
           <button
@@ -177,19 +144,43 @@ export default function Home() {
           <h2>{type}</h2>
           {contents.filter(content => content.contentType === type).map(content => (
             <div key={content.id.toString()} className="content-item">
-              <p>Content ID: {content.id.toString()}</p>
-              <p>Encoding: {content.encoding}</p>
-              <p>Content Type: {content.contentType}</p>
-              <p>Revision: {content.revision}</p>
-              <p>Created at: {new Date(content.createdAt * 1000).toLocaleString()}</p>
-              <p>Updated by: {content.updatedBy}</p>
-              <button onClick={() => openModal(content)} className="details-button">Details</button>
-              <ContentModal content={modalContent} />
+              {/* 初期表示される詳細情報 */}
+              <div className="content-details">
+                {content.content && Object.entries(JSON.parse(content.content)).map(([key, value]) => {
+                  let displayElement;
+                  if (value === null) {
+                    displayElement = <p key={key}>{key}: -</p>;
+                  } else if (key === 'image') {
+                    displayElement = <p key={key}>{key}: <img src={value} alt="content" /></p>;
+                  } else if (Array.isArray(value)) {
+                    const displayValue = value.map(v => v === null ? '-' : (typeof v === 'string' ? parseJson(v) : v)).join(', ');
+                    displayElement = <p key={key}>{key}: {displayValue}</p>;
+                  } else {
+                    const displayValue = typeof value === 'string' ? parseJson(value) : value;
+                    displayElement = <p key={key}>{key}: {displayValue}</p>;
+                  }
+                  return displayElement;
+                })}
+              </div>
+              {/* アコーディオンで表示される基本情報 */}
+              {expandedId === content.id && (
+                <div className="content-basic">
+                  <p>Content ID: {content.id.toString()}</p>
+                  <p>Encoding: {content.encoding}</p>
+                  <p>Content Type: {content.contentType}</p>
+                  <p>Revision: {content.revision}</p>
+                  <p>Created at: {new Date(content.createdAt * 1000).toLocaleString()}</p>
+                  <p>Updated by: {content.updatedBy}</p>
+                </div>
+              )}
+              <button onClick={() => toggleDetails(content.id)} className="details-button">
+                {expandedId === content.id ? 'Hide Details' : 'Show Details'}
+              </button>
             </div>
           ))}
         </div>
       ))}
-      {!modalIsOpen && (
+      {(
         <button className="scrollToTopButton" onClick={scrollTop} style={{display: showScroll ? 'flex' : 'none'}}>
           Top
         </button>

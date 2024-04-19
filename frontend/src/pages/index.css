@@ -109,3 +109,16 @@
 .content-type-button:hover {
   background-color: #0a58ca;
 }
+.content-left {
+  flex: 1;
+  margin-right: 20px;
+}
+.content-right {
+  flex: 3;
+}
+@media (max-width: 768px) {
+  .content-left, .content-right {
+    flex: 100%;
+    margin-right: 0;
+  }
+}
