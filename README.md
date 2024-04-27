@@ -15,6 +15,44 @@ This project is a demonstration of a full-stack dApp (decentralized application)
 - React
 - Next.js
 
+
+## Docker 
+
+### Frontend container
+
+#### Set up container
+
+`docker compose exec frontend bash`
+
+`npm ci`
+
+#### Frontend App Url
+
+`http://localhost:3000/`
+
+### App container
+
+#### Set up container
+
+`docker compose exec app bash`
+
+`npm ci`
+
+#### Container build & launch
+
+`docker compose up -d`
+
+#### Hardhat
+
+##### Compile
+
+`npx hardhat compile`
+
+##### Test
+
+`npx hardhat test`
+
+
 ## Key Scripts
 
 To run the main tasks, use the following commands:
