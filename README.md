@@ -102,23 +102,3 @@ Fetch a single content:
 ```shell
 npx ts-node scripts/fetch.ts --contractAddress 0xYourContractAddress --contentId 0
 ```
-
-## Building and Running the Frontend
-
-Install dependencies:
-
-```shell
-yarn install
-```
-
-Run the development server:
-
-```shell
-yarn dev
-```
-
-Build the application for production:
-
-```shell
-yarn build
-```
