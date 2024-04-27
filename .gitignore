@@ -27,3 +27,6 @@ tmp
 
 # Ignore generated files
 .DS_Store
+
+# other
+MEMO.md
