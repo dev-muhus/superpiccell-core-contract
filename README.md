@@ -34,6 +34,8 @@ npm ci
 
 `http://localhost:3000/`
 
+**Note:** The port number is provided as an example. It can be changed in the `.env` file.
+
 ### App container
 
 #### Set up container
