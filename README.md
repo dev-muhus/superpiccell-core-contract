@@ -16,15 +16,19 @@ This project is a demonstration of a full-stack dApp (decentralized application)
 - Next.js
 
 
-## Docker 
+## Development Environment (Docker)
 
 ### Frontend container
 
 #### Set up container
 
-`docker compose exec frontend bash`
+```shell
+docker compose exec frontend bash
+```
 
-`npm ci`
+```shell
+npm ci
+```
 
 #### Frontend App Url
 
@@ -34,23 +38,33 @@ This project is a demonstration of a full-stack dApp (decentralized application)
 
 #### Set up container
 
-`docker compose exec app bash`
+```shell
+docker compose exec app bash
+```
 
-`npm ci`
+```shell
+npm ci
+```
 
 #### Container build & launch
 
-`docker compose up -d`
+```shell
+docker compose up -d
+```
 
 #### Hardhat
 
 ##### Compile
 
-`npx hardhat compile`
+```shell
+npx hardhat compile
+```
 
 ##### Test
 
-`npx hardhat test`
+```shell
+npx hardhat test
+```
 
 
 ## Key Scripts
