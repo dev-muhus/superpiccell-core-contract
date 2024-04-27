@@ -1,17 +1,17 @@
-# Node.jsの公式イメージをベースにする。バージョンはpackage.jsonと互換性のあるものを選ぶ
+# Use the official Node.js image as a base. Choose a version that is compatible with package.json.
 FROM node:16
 
-# /appディレクトリを作成して作業ディレクトリとして設定
+# Create and set the /app directory as the working directory.
 WORKDIR /app
 
-# package.json と package-lock.json をコピー
+# Copy package.json and package-lock.json.
 COPY package*.json ./
 
-# プロジェクトの依存関係をインストール。npm ciを利用してpackage-lock.jsonに基づいた正確なバージョンでインストール
+# Install project dependencies. Use npm install to install exact versions based on package-lock.json.
 RUN npm install
 
-# プロジェクトのソースコードをコピー。.dockerignoreを使用してnode_modulesやローカル環境固有のファイルを除外
+# Copy the project source code. Use .dockerignore to exclude node_modules and other local-specific files.
 COPY . .
 
-# コンテナが起動したときに実行されるコマンド。開発用サーバーを起動します。
+# Command to be executed when the container starts. This starts a development server.
 CMD ["tail", "-f", "/dev/null"]

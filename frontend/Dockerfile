@@ -6,9 +6,6 @@ RUN apt-get update && apt-get install -y \
   xz-utils \
   && rm -rf /var/lib/apt/lists/*
 
-# Install PM2 globally
-#RUN npm install --global pm2
-
 WORKDIR /frontend
 
 # Install Next.js globally
@@ -25,5 +22,4 @@ COPY . .
 
 EXPOSE 3000
 
-# Use PM2 to run Next.js dev server
 CMD ["npm", "run", "dev"]
