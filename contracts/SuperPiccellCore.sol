@@ -94,9 +94,9 @@ contract SuperPiccellCore is Ownable {
 
         Content[] memory matchingContents = new Content[](existingContentCount);
         uint256 index = 0;
-        for (uint256 i = 1; i < nextContentId; i++) {
-            if (contents[i].exists && (keccak256(bytes(_condition)) == keccak256(bytes("")) || keccak256(bytes(contents[i].contentType)) == keccak256(bytes(_condition)))) {
-                matchingContents[index] = contents[i];
+        for (uint256 I = 1; I < nextContentId; I++) {
+            if (contents[I].exists && (keccak256(bytes(_condition)) == keccak256(bytes("")) || keccak256(bytes(contents[I].contentType)) == keccak256(bytes(_condition)))) {
+                matchingContents[index] = contents[I];
                 index++;
             }
         }
@@ -107,6 +107,11 @@ contract SuperPiccellCore is Ownable {
     // Function to protect the contract
     function protectContract() public onlyOwner {
         isProtected = true;
+    }
+
+    // Function to check if the contract is protected
+    function isContractProtected() public view returns (bool) {
+        return isProtected;
     }
 
     // Function to withdraw any Ether sent to the contract

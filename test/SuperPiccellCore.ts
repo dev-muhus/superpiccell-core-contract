@@ -1,4 +1,3 @@
-
 import { ethers } from "hardhat";
 import { Contract, Signer } from "ethers";
 import { expect } from "chai";
@@ -165,5 +164,11 @@ describe("SuperPiccellCore contract", function () {
   
     // Check the token balance of the contract again
     expect(await erc20.balanceOf(superPiccellCore.address)).to.equal(0);
+  });
+
+  it("Should be able to check if the contract is protected", async function () {
+    expect(await superPiccellCore.isContractProtected()).to.equal(false);
+    await superPiccellCore.protectContract();
+    expect(await superPiccellCore.isContractProtected()).to.equal(true);
   });
 });
