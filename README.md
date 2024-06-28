@@ -73,31 +73,41 @@ npx hardhat test
 
 To run the main tasks, use the following commands:
 
-Deploy the contract:
+### Deploy the contract:
 
 ```shell
 npx ts-node scripts/deploy.ts
 ```
 
-Manage contents:
+### Manage contents:
+
+Create content:
 
 ```shell
 npx ts-node scripts/manage.ts --contractAddress 0xYourContractAddress --action create --jsonFilePath /path/to/your/jsonfile.json
 ```
 
-Fetch all contents:
+### Protect the contract:
+
+Switch the contract to protected mode:
+
+```shell
+npx ts-node scripts/manage.ts --contractAddress 0xYourContractAddress --action protect
+```
+
+### Fetch all contents:
 
 ```shell
 npx ts-node scripts/fetch.ts --contractAddress 0xYourContractAddress
 ```
 
-Fetch contents with a specific contentType:
+### Fetch contents with a specific contentType:
 
 ```shell
 npx ts-node scripts/fetch.ts --contractAddress 0xYourContractAddress --contentType Character
 ```
 
-Fetch a single content:
+### Fetch a single content:
 
 ```shell
 npx ts-node scripts/fetch.ts --contractAddress 0xYourContractAddress --contentId 0
