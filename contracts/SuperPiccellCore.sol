@@ -20,6 +20,7 @@ contract SuperPiccellCore is Ownable {
     }
 
     mapping(uint256 => Content) public contents;
+    mapping(uint256 => bool) public protectedContents; // Mapping to track if content is protected
     uint256 public nextContentId = 1;
     bool public isProtected = false;
 
@@ -28,6 +29,7 @@ contract SuperPiccellCore is Ownable {
     event ContentUpdated(uint256 id, string newContent);
     event ContentDeleted(uint256 id);
     event TokenWithdrawn(address token, uint256 amount, address to);
+    event ContentProtected(uint256 id); // Event for content protection
 
     // Function to create a new content
     function createContent(string memory _encoding, string memory _contentType, string memory _content, string memory _revision) public onlyOwner {
@@ -54,6 +56,7 @@ contract SuperPiccellCore is Ownable {
         require(!isProtected, "Contract is protected");
         Content storage content = contents[id];
         require(content.exists, "Content does not exist");
+        require(!protectedContents[id], "Content is protected"); // Check if the content is protected
         content.content = _content;
         content.updatedAt = block.timestamp;
         content.updatedBy = msg.sender;
@@ -63,9 +66,27 @@ contract SuperPiccellCore is Ownable {
     // Function to delete the content
     function deleteContent(uint256 id) public onlyOwner {
         require(!isProtected, "Contract is protected");
-        require(contents[id].exists, "Content does not exist");
-        contents[id].exists = false;
+        Content storage content = contents[id];
+        require(content.exists, "Content does not exist");
+        require(!protectedContents[id], "Content is protected"); // Check if the content is protected
+        content.exists = false;
         emit ContentDeleted(id);
+    }
+
+    // Function to protect a content permanently
+    function protectContent(uint256 id) public onlyOwner {
+        require(!isProtected, "Contract is protected"); // Check if the contract is protected
+        Content storage content = contents[id];
+        require(content.exists, "Content does not exist");
+        require(!protectedContents[id], "Content is already protected");
+        protectedContents[id] = true;
+        emit ContentProtected(id);
+    }
+
+    // Function to check if content is protected
+    function isContentProtected(uint256 id) public view returns (bool) {
+        require(contents[id].exists, "Content does not exist");
+        return protectedContents[id];
     }
 
     // Function to get the content

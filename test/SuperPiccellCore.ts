@@ -28,7 +28,7 @@ describe("SuperPiccellCore contract", function () {
         )).to.emit(superPiccellCore, "ContentCreated").withArgs(1, "Content");
     });
 
-    it("Should not be able to create a new content when protected", async function () {
+    it("Should not be able to create a new content when contract is protected", async function () {
         await superPiccellCore.protectContract();
         await expect(superPiccellCore.createContent(
             "UTF-8",
@@ -45,11 +45,18 @@ describe("SuperPiccellCore contract", function () {
             .withArgs(1, "New content");
     });
 
-    it("Should not be able to update the content when protected", async function () {
+    it("Should not be able to update the content when contract is protected", async function () {
         await superPiccellCore.createContent("UTF-8", "Character", "Content", "Genesis");
         await superPiccellCore.protectContract();
         await expect(superPiccellCore.updateContent(1, "New content"))
             .to.be.revertedWith("Contract is protected");
+    });
+
+    it("Should not be able to update permanently protected content", async function () {
+        await superPiccellCore.createContent("UTF-8", "Character", "Content", "Genesis");
+        await superPiccellCore.protectContent(1);
+        await expect(superPiccellCore.updateContent(1, "New content"))
+            .to.be.revertedWith("Content is protected");
     });
 
     it("Should be able to delete the content", async function () {
@@ -59,45 +66,62 @@ describe("SuperPiccellCore contract", function () {
             .withArgs(1);
     });
 
-    it("Should not be able to delete the content when protected", async function () {
+    it("Should not be able to delete the content when contract is protected", async function () {
         await superPiccellCore.createContent("UTF-8", "Character", "Content", "Genesis");
         await superPiccellCore.protectContract();
         await expect(superPiccellCore.deleteContent(1))
             .to.be.revertedWith("Contract is protected");
     });
 
-    it("Should be able to get all contents", async function () {
+    it("Should not be able to delete permanently protected content", async function () {
         await superPiccellCore.createContent("UTF-8", "Character", "Content", "Genesis");
-        await superPiccellCore.createContent("UTF-8", "Character", "Content 2", "Genesis");
-        const contents = await superPiccellCore.getAllContents();
-        expect(contents.length).to.equal(2);
-        expect(contents[0].content).to.equal("Content");
-        expect(contents[1].content).to.equal("Content 2");
+        await superPiccellCore.protectContent(1);
+        await expect(superPiccellCore.deleteContent(1))
+            .to.be.revertedWith("Content is protected");
     });
 
-    it("Should be able to get contents by content type", async function () {
-        await superPiccellCore.createContent("UTF-8", "Location", "Content 1", "Genesis");
-        await superPiccellCore.createContent("UTF-8", "Character", "Content 2", "Genesis");
-        await superPiccellCore.createContent("UTF-8", "Scene", "Content 3", "Genesis");
-        await superPiccellCore.createContent("UTF-8", "Scene", "Content 4", "Genesis");
-        await superPiccellCore.createContent("UTF-8", "Scene", "Content 5", "Genesis");
-        await superPiccellCore.createContent("UTF-8", "Location", "Content 6", "Genesis");
-        await superPiccellCore.createContent("UTF-8", "Character", "Content 7", "Genesis");
-        const contents = await superPiccellCore.getContentsByContentType("Character");
-        expect(contents.length).to.equal(2);
-        expect(contents[0].content).to.equal("Content 2");
+    it("Should allow protecting content permanently", async function () {
+        await superPiccellCore.createContent("UTF-8", "Character", "Content", "Genesis");
+        await expect(superPiccellCore.protectContent(1))
+            .to.emit(superPiccellCore, "ContentProtected")
+            .withArgs(1);
+
+        const isProtected = await superPiccellCore.isContentProtected(1);
+        expect(isProtected).to.be.true;
     });
 
-    it("Should return the correct content when using getContent", async function () {
-        await superPiccellCore.createContent("UTF-8", "Character", "Content", "Genesis");
-        const content = await superPiccellCore.getContent(1);
-        expect(content.content).to.equal("Content");
+    it("Should revert if checking protection status of a non-existent content", async function () {
+        await expect(superPiccellCore.isContentProtected(999))
+            .to.be.revertedWith("Content does not exist");
     });
 
     it("Should return true if the contract is protected", async function () {
         await superPiccellCore.protectContract();
         const isProtected = await superPiccellCore.isContractProtected();
         expect(isProtected).to.be.true;
+    });
+
+    it("Should be able to get contents by content type", async function () {
+        await superPiccellCore.createContent("UTF-8", "Character", "Content 1", "Rev1");
+        await superPiccellCore.createContent("UTF-8", "Character", "Content 2", "Rev2");
+        await superPiccellCore.createContent("UTF-8", "Location", "Content 3", "Rev3");
+
+        const contents = await superPiccellCore.getContentsByContentType("Character");
+        expect(contents.length).to.equal(2);
+        expect(contents[0].content).to.equal("Content 1");
+        expect(contents[1].content).to.equal("Content 2");
+    });
+
+    it("Should be able to get all contents", async function () {
+        await superPiccellCore.createContent("UTF-8", "Character", "Content 1", "Rev1");
+        await superPiccellCore.createContent("UTF-8", "Character", "Content 2", "Rev2");
+        await superPiccellCore.createContent("UTF-8", "Location", "Content 3", "Rev3");
+
+        const contents = await superPiccellCore.getAllContents();
+        expect(contents.length).to.equal(3);
+        expect(contents[0].content).to.equal("Content 1");
+        expect(contents[1].content).to.equal("Content 2");
+        expect(contents[2].content).to.equal("Content 3");
     });
 
     it("Should reject incoming Ether", async function () {
@@ -140,7 +164,7 @@ describe("SuperPiccellCore contract", function () {
         await expect(superPiccellCore.withdrawToken(erc20Mock.address, 100, await addr1.getAddress()))
             .to.be.revertedWith("Transfer failed");
 
-        await erc20Mock.setTransferFail(false); // 状態を元に戻す
+        await erc20Mock.setTransferFail(false); // Reset state
     });
 
     it("Should correctly track the number of contents", async function () {

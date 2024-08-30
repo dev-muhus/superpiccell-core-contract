@@ -84,7 +84,7 @@ npx ts-node scripts/deploy.ts
 Create content:
 
 ```shell
-npx ts-node scripts/manage.ts --contractAddress 0xYourContractAddress --action create --jsonFilePath /path/to/your/jsonfile.json
+npx ts-node scripts/manage.ts --contractAddress 0xContractAddress --action create --jsonFilePath /path/to/your/jsonfile.json
 ```
 
 ### Protect the contract:
@@ -92,23 +92,47 @@ npx ts-node scripts/manage.ts --contractAddress 0xYourContractAddress --action c
 Switch the contract to protected mode:
 
 ```shell
-npx ts-node scripts/manage.ts --contractAddress 0xYourContractAddress --action protect
+npx ts-node scripts/manage.ts --contractAddress 0xContractAddress --action protect
+```
+
+Check if the contract is in protected mode:
+
+```shell
+npx ts-node scripts/manage.ts --contractAddress 0xContractAddress --action checkContractProtection
+```
+
+Protect a specific content:
+
+```shell
+npx ts-node scripts/manage.ts --contractAddress 0xContractAddress --action protectContent --contentId 0
+```
+
+Check if a specific content is protected:
+
+```shell
+npx ts-node scripts/manage.ts --contractAddress 0xContractAddress --action checkContentProtection --contentId 0
+```
+
+Delete a specific content:
+
+```shell
+npx ts-node scripts/manage.ts --contractAddress 0xContractAddress --action delete --contentId 1
 ```
 
 ### Fetch all contents:
 
 ```shell
-npx ts-node scripts/fetch.ts --contractAddress 0xYourContractAddress
+npx ts-node scripts/fetch.ts --contractAddress 0xContractAddress
 ```
 
 ### Fetch contents with a specific contentType:
 
 ```shell
-npx ts-node scripts/fetch.ts --contractAddress 0xYourContractAddress --contentType Character
+npx ts-node scripts/fetch.ts --contractAddress 0xContractAddress --contentType Character
 ```
 
 ### Fetch a single content:
 
 ```shell
-npx ts-node scripts/fetch.ts --contractAddress 0xYourContractAddress --contentId 0
+npx ts-node scripts/fetch.ts --contractAddress 0xContractAddress --contentId 0
 ```
