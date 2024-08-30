@@ -27,6 +27,7 @@ contract SuperPiccellCore is Ownable {
     event ContentCreated(uint256 id, string content);
     event ContentUpdated(uint256 id, string newContent);
     event ContentDeleted(uint256 id);
+    event TokenWithdrawn(address token, uint256 amount, address to);
 
     // Function to create a new content
     function createContent(string memory _encoding, string memory _contentType, string memory _content, string memory _revision) public onlyOwner {
@@ -75,38 +76,37 @@ contract SuperPiccellCore is Ownable {
 
     // Function to get all contents
     function getAllContents() public view returns (Content[] memory) {
-        return getContentsByCondition("");
+        uint count = nextContentId - 1;
+        Content[] memory allContents = new Content[](count);
+        uint index = 0;
+        for (uint i = 1; i <= count; i++) {
+            if (contents[i].exists) {
+                allContents[index] = contents[i];
+                index++;
+            }
+        }
+        return allContents;
     }
 
     // Function to get contents by content type
     function getContentsByContentType(string memory _contentType) public view returns (Content[] memory) {
-        return getContentsByCondition(_contentType);
-    }
-
-    // Private function to get contents by condition
-    function getContentsByCondition(string memory _condition) private view returns (Content[] memory) {
-        uint256 existingContentCount = 0;
-        for (uint256 i = 1; i < nextContentId; i++) {
-            if (contents[i].exists && (keccak256(bytes(_condition)) == keccak256(bytes("")) || keccak256(bytes(contents[i].contentType)) == keccak256(bytes(_condition)))) {
-                existingContentCount++;
+        uint count = nextContentId - 1;
+        uint matchCount = 0;
+        for (uint i = 1; i <= count; i++) {
+            if (contents[i].exists && keccak256(bytes(contents[i].contentType)) == keccak256(bytes(_contentType))) {
+                matchCount++;
             }
         }
 
-        Content[] memory matchingContents = new Content[](existingContentCount);
-        uint256 index = 0;
-        for (uint256 I = 1; I < nextContentId; I++) {
-            if (contents[I].exists && (keccak256(bytes(_condition)) == keccak256(bytes("")) || keccak256(bytes(contents[I].contentType)) == keccak256(bytes(_condition)))) {
-                matchingContents[index] = contents[I];
+        Content[] memory matchingContents = new Content[](matchCount);
+        uint index = 0;
+        for (uint i = 1; i <= count; i++) {
+            if (contents[i].exists && keccak256(bytes(contents[i].contentType)) == keccak256(bytes(_contentType))) {
+                matchingContents[index] = contents[i];
                 index++;
             }
         }
-
         return matchingContents;
-    }
-
-    // Function to protect the contract
-    function protectContract() public onlyOwner {
-        isProtected = true;
     }
 
     // Function to check if the contract is protected
@@ -114,29 +114,23 @@ contract SuperPiccellCore is Ownable {
         return isProtected;
     }
 
-    // Function to withdraw any Ether sent to the contract
-    function withdraw() public onlyOwner {
-        uint256 balance = address(this).balance;
-        payable(owner()).transfer(balance);
+    // Function to protect the contract
+    function protectContract() public onlyOwner {
+        isProtected = true;
     }
 
-    // Function to receive Ether
-    receive() external payable {}
-
-    // Function to withdraw any ERC20 tokens sent to the contract
-    function withdrawToken(IERC20 _token) public onlyOwner {
-        uint256 balance = _token.balanceOf(address(this));
-        _token.transfer(owner(), balance);
+    // Function to withdraw accidentally received ERC20 tokens
+    function withdrawToken(IERC20 _token, uint256 _amount, address _to) public onlyOwner {
+        require(_token.transfer(_to, _amount), "Transfer failed");
+        emit TokenWithdrawn(address(_token), _amount, _to);
     }
 
-    // Function to receive ERC20 tokens
-    function receiveToken(IERC20 _token, uint256 _amount) public onlyOwner {
-        uint256 balanceBefore = _token.balanceOf(address(this));
-        _token.transferFrom(msg.sender, address(this), _amount);
-        uint256 balanceAfter = _token.balanceOf(address(this));
-        require(balanceAfter - balanceBefore == _amount, "Transfer amount doesn't match");
+    // Fallback function to prevent receiving Ether
+    fallback() external payable {
+        revert("Contract does not accept Ether or tokens");
     }
 
-    // Fallback function
-    fallback() external payable {}
+    receive() external payable {
+        revert("Contract does not accept Ether or tokens");
+    }
 }
