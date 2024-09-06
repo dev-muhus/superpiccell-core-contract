@@ -1,6 +1,5 @@
 [
     {
-        "id": 1,
         "encoding": "UTF-8",
         "contentType": "Character",
         "content": {
@@ -23,7 +22,6 @@
         "revision": "Genesis"
     },
     {
-        "id": 2,
         "encoding": "UTF-8",
         "contentType": "Character",
         "content": {
@@ -46,7 +44,6 @@
         "revision": "Genesis"
     },
     {
-        "id": 3,
         "encoding": "UTF-8",
         "contentType": "Character",
         "content": {
@@ -69,7 +66,6 @@
         "revision": "Genesis"
     },
     {
-        "id": 4,
         "encoding": "UTF-8",
         "contentType": "Character",
         "content": {
@@ -92,7 +88,6 @@
         "revision": "Genesis"
     },
     {
-        "id": 5,
         "encoding": "UTF-8",
         "contentType": "Character",
         "content": {
@@ -115,7 +110,6 @@
         "revision": "Genesis"
     },
     {
-        "id": 6,
         "encoding": "UTF-8",
         "contentType": "Character",
         "content": {
@@ -138,7 +132,6 @@
         "revision": "Genesis"
     },
     {
-        "id": 7,
         "encoding": "UTF-8",
         "contentType": "Character",
         "content": {
@@ -161,7 +154,6 @@
         "revision": "Genesis"
     },
     {
-        "id": 8,
         "encoding": "UTF-8",
         "contentType": "Character",
         "content": {
@@ -184,7 +176,6 @@
         "revision": "Genesis"
     },
     {
-        "id": 9,
         "encoding": "UTF-8",
         "contentType": "Character",
         "content": {
@@ -207,7 +198,6 @@
         "revision": "Genesis"
     },
     {
-        "id": 10,
         "encoding": "UTF-8",
         "contentType": "Character",
         "content": {
@@ -230,7 +220,6 @@
         "revision": "Genesis"
     },
     {
-        "id": 11,
         "encoding": "UTF-8",
         "contentType": "Character",
         "content": {
@@ -253,7 +242,6 @@
         "revision": "Genesis"
     },
     {
-        "id": 12,
         "encoding": "UTF-8",
         "contentType": "Character",
         "content": {
@@ -276,7 +264,6 @@
         "revision": "Genesis"
     },
     {
-        "id": 13,
         "encoding": "UTF-8",
         "contentType": "Character",
         "content": {
@@ -299,7 +286,6 @@
         "revision": "Genesis"
     },
     {
-        "id": 14,
         "encoding": "UTF-8",
         "contentType": "Character",
         "content": {
@@ -322,7 +308,6 @@
         "revision": "Genesis"
     },
     {
-        "id": 15,
         "encoding": "UTF-8",
         "contentType": "Character",
         "content": {
