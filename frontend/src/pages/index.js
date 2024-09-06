@@ -123,19 +123,21 @@ export default function Home() {
       <div className="content-header" ref={headerRef}>
         <h1>SuperPiccellCore Contents</h1>
         {!isLoading && contentTypes.map(type => (
-          <button
-            key={type}
-            className="content-type-button"
-            onClick={() => {
-              const headerHeight = headerRef.current ? headerRef.current.offsetHeight : 0;
-              window.scrollTo({
-                top: document.getElementById(type).offsetTop - headerHeight,
-                behavior: 'smooth'
-              });
-            }}
-          >
-            {type}
-          </button>
+          type && (
+            <button
+              key={type}
+              className="content-type-button"
+              onClick={() => {
+                const headerHeight = headerRef.current ? headerRef.current.offsetHeight : 0;
+                window.scrollTo({
+                  top: document.getElementById(type).offsetTop - headerHeight,
+                  behavior: 'smooth'
+                });
+              }}
+            >
+              {type}
+            </button>
+          )
         ))}
       </div>
       {isLoading && <p>Loading...</p>}
