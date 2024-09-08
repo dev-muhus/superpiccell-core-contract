@@ -19,7 +19,7 @@ This project is a demonstration of a full-stack dApp (decentralized application)
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/your-username/superpiccell-core-contract.git
+git clone git@github.com:dev-muhus/superpiccell-core-contract.git
 cd superpiccell-core-contract
 ```
 
