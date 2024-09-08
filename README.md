@@ -1,3 +1,4 @@
+
 # SuperPiccellCore Project
 
 This project is a demonstration of a full-stack dApp (decentralized application). The dApp allows for the creation and management of content on the Ethereum blockchain. It also provides a frontend built with React and Next.js for interacting with the smart contract and viewing the content.
@@ -8,68 +9,71 @@ This project is a demonstration of a full-stack dApp (decentralized application)
 - Creation and management of content on the blockchain
 - Fetching and displaying the content on a React/Next.js frontend
 
-## Technologies Used
+## Prerequisites
 
-- Hardhat
-- ethers.js
-- React
-- Next.js
+- Node.js (v14 or higher)
+- Docker
+- MetaMask extension
 
+## Setup Instructions
 
-## Development Environment (Docker)
-
-### Frontend container
-
-#### Set up container
-
-```shell
-docker compose exec frontend bash
+### 1. Clone the Repository
+```bash
+git clone https://github.com/your-username/superpiccell-core-contract.git
+cd superpiccell-core-contract
 ```
 
-```shell
-npm ci
+### 2. Set Up Environment Variables
+
+There are **two environment variable files** to configure:
+
+#### `.env` (for backend configuration):
+```bash
+COMPOSE_PROJECT_NAME=superpiccell_core
+FRONTEND_PORT=8080
+NODE_ENV=development
+
+PRIVATE_KEY=<your_private_key>
+NETWORK_URL=<your_backend_rpc_url>
+NETWORK_NAME=<your_network>
 ```
 
-#### Frontend App Url
-
-`http://localhost:3000/`
-
-**Note:** The port number is provided as an example. It can be changed in the `.env` file.
-
-### App container
-
-#### Set up container
-
-```shell
-docker compose exec app bash
+#### `frontend/.env.local` (for frontend configuration):
+```bash
+NEXT_PUBLIC_CONTRACT_ADDRESS=<your_contract_address>
+NEXT_PUBLIC_NETWORK_ID=<your_network_id>
+NEXT_PUBLIC_NETWORK_NAME=<your_network_name>
 ```
 
-```shell
-npm ci
-```
-
-#### Container build & launch
-
-```shell
+### 3. Build and Launch Docker Containers
+```bash
 docker compose up -d
 ```
 
-#### Hardhat
+### 4. Install Dependencies Inside the Container
 
-##### Compile
+For the backend:
 
-```shell
-npx hardhat compile
+```bash
+docker compose exec app bash
+npm ci
 ```
 
-##### Test
+For the frontend:
 
-```shell
-npx hardhat test
+```bash
+docker compose exec frontend bash
+npm ci
 ```
 
+### 5. Start the Application
+```bash
+npm run dev
+```
 
-## Key Scripts
+The application will be available at `http://localhost:8080`.
+
+## Example Commands
 
 To run the main tasks, use the following commands:
 
@@ -81,58 +85,117 @@ npx ts-node scripts/deploy.ts
 
 ### Manage contents:
 
-Create content:
-
+- Create content:
 ```shell
 npx ts-node scripts/manage.ts --contractAddress 0xContractAddress --action create --jsonFilePath /path/to/your/jsonfile.json
 ```
 
-### Protect the contract:
-
-Switch the contract to protected mode:
-
-```shell
-npx ts-node scripts/manage.ts --contractAddress 0xContractAddress --action protect
-```
-
-Check if the contract is in protected mode:
-
-```shell
-npx ts-node scripts/manage.ts --contractAddress 0xContractAddress --action checkContractProtection
-```
-
-Protect a specific content:
-
-```shell
-npx ts-node scripts/manage.ts --contractAddress 0xContractAddress --action protectContent --contentId 0
-```
-
-Check if a specific content is protected:
-
-```shell
-npx ts-node scripts/manage.ts --contractAddress 0xContractAddress --action checkContentProtection --contentId 0
-```
-
-Delete a specific content:
-
+- Delete content:
 ```shell
 npx ts-node scripts/manage.ts --contractAddress 0xContractAddress --action delete --contentId 1
 ```
 
-### Fetch all contents:
+### Minting Commands:
 
+- Enable minting:
+```shell
+npx ts-node scripts/manage.ts 0xContractAddress enableMinting
+```
+
+- Disable minting:
+```shell
+npx ts-node scripts/manage.ts 0xContractAddress disableMinting
+```
+
+- Set mint price:
+```shell
+npx ts-node scripts/manage.ts 0xContractAddress setMintPrice 0.01
+```
+
+- Set payment token:
+```shell
+npx ts-node scripts/manage.ts 0xContractAddress setPaymentToken 0xYourTokenAddress
+```
+
+### Protect and Check Protection:
+
+- Switch the contract to protected mode:
+```shell
+npx ts-node scripts/manage.ts --contractAddress 0xContractAddress --action protect
+```
+
+- Check if the contract is in protected mode:
+```shell
+npx ts-node scripts/manage.ts --contractAddress 0xContractAddress --action checkContractProtection
+```
+
+- Protect a specific content:
+```shell
+npx ts-node scripts/manage.ts --contractAddress 0xContractAddress --action protectContent --contentId 0
+```
+
+- Check if a specific content is protected:
+```shell
+npx ts-node scripts/manage.ts --contractAddress 0xContractAddress --action checkContentProtection --contentId 0
+```
+
+### Fetch contents:
+
+- Fetch all contents:
 ```shell
 npx ts-node scripts/fetch.ts --contractAddress 0xContractAddress
 ```
 
-### Fetch contents with a specific contentType:
-
+- Fetch contents with a specific contentType:
 ```shell
 npx ts-node scripts/fetch.ts --contractAddress 0xContractAddress --contentType Character
 ```
 
-### Fetch a single content:
-
+- Fetch a single content:
 ```shell
 npx ts-node scripts/fetch.ts --contractAddress 0xContractAddress --contentId 0
 ```
+
+## Frontend Components
+
+### `index.js`
+Handles the main app logic and UI rendering.
+
+### `fetchContents.js`
+Fetches contents from the blockchain using ethers.js.
+
+## Contracts
+
+### `SuperPiccellCore.sol`
+Main contract for content management and protection.
+
+### `ERC20Mock.sol`
+A mock ERC20 contract for testing.
+
+## Testing
+
+### Run Tests
+```bash
+npx hardhat test
+```
+
+## License
+
+This project is licensed under the Unlicense. For more details, see the [LICENSE](LICENSE) file.
+
+## Etherscan Contract Verification (Automated)
+
+This project supports automated contract verification on Etherscan. After deploying your contracts, you can easily verify them using the following command:
+
+### Verify Contracts
+```bash
+npx hardhat verify --network sepolia <DEPLOYED_CONTRACT_ADDRESS>
+```
+
+Before running this command, ensure your `.env` file is properly configured with your Etherscan API key:
+
+```bash
+ETHERSCAN_API_KEY=<your_etherscan_api_key>
+```
+
+By running the above command, the contract will be automatically verified and published on Etherscan, including all related source code and dependencies.
