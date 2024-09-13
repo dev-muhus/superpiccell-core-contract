@@ -95,28 +95,6 @@ npx ts-node scripts/manage.ts --contractAddress 0xContractAddress --action creat
 npx ts-node scripts/manage.ts --contractAddress 0xContractAddress --action delete --contentId 1
 ```
 
-### Minting Commands:
-
-- Enable minting:
-```shell
-npx ts-node scripts/manage.ts 0xContractAddress enableMinting
-```
-
-- Disable minting:
-```shell
-npx ts-node scripts/manage.ts 0xContractAddress disableMinting
-```
-
-- Set mint price:
-```shell
-npx ts-node scripts/manage.ts 0xContractAddress setMintPrice 0.01
-```
-
-- Set payment token:
-```shell
-npx ts-node scripts/manage.ts 0xContractAddress setPaymentToken 0xYourTokenAddress
-```
-
 ### Protect and Check Protection:
 
 - Switch the contract to protected mode:
