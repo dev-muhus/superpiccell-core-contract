@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { ethers } from 'ethers';
 import { fetchContents } from '../utils/fetchContents';
 import Modal from 'react-modal';
-import './index.css';
 
 Modal.setAppElement('#__next')
 
