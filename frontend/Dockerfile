@@ -1,4 +1,4 @@
-FROM node:22-bullseye
+FROM node:22-bookworm
 
 # Install dependencies
 RUN apt-get update && apt-get install -y \
@@ -7,9 +7,6 @@ RUN apt-get update && apt-get install -y \
   && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /frontend
-
-# Install Next.js globally
-RUN npm install --global next@latest
 
 # Copy package.json and package-lock.json  
 COPY package*.json ./

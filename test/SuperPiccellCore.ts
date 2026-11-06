@@ -1,22 +1,24 @@
-import { ethers } from "hardhat";
-import { Contract, Signer } from "ethers";
 import { expect } from "chai";
+import type { Contract, Signer } from "ethers";
+import { network } from "hardhat";
+
+const { ethers } = await network.create();
 
 describe("SuperPiccellCore contract", function () {
-    let SuperPiccellCore;
     let superPiccellCore: Contract;
     let owner: Signer;
     let addr1: Signer;
     let erc20Mock: Contract;
 
     beforeEach(async () => {
-        SuperPiccellCore = await ethers.getContractFactory("SuperPiccellCore");
         [owner, addr1] = await ethers.getSigners();
-        superPiccellCore = await SuperPiccellCore.connect(owner).deploy();
-
-        const ERC20Mock = await ethers.getContractFactory("ERC20Mock");
-        erc20Mock = await ERC20Mock.deploy("Test Token", "TT");
+        superPiccellCore = await ethers.deployContract("SuperPiccellCore", [], owner);
+        erc20Mock = await ethers.deployContract("ERC20Mock", ["Test Token", "TT"]);
         await erc20Mock.mint(await owner.getAddress(), 1000);
+    });
+
+    it("Should set the deployer as the owner", async function () {
+        expect(await superPiccellCore.owner()).to.equal(await owner.getAddress());
     });
 
     it("Should be able to create a new content", async function () {
@@ -126,42 +128,43 @@ describe("SuperPiccellCore contract", function () {
 
     it("Should reject incoming Ether", async function () {
         await expect(owner.sendTransaction({
-            to: superPiccellCore.address,
-            value: ethers.utils.parseEther("1")
+            to: await superPiccellCore.getAddress(),
+            value: ethers.parseEther("1")
         })).to.be.revertedWith("Contract does not accept Ether or tokens");
     });
 
     it("Should allow ERC20 token withdrawal", async function () {
-        await erc20Mock.transfer(superPiccellCore.address, 100);
+        await erc20Mock.transfer(await superPiccellCore.getAddress(), 100);
         const initialBalance = await erc20Mock.balanceOf(await addr1.getAddress());
 
-        await expect(superPiccellCore.withdrawToken(erc20Mock.address, 100, await addr1.getAddress()))
+        await expect(superPiccellCore.withdrawToken(await erc20Mock.getAddress(), 100, await addr1.getAddress()))
             .to.emit(superPiccellCore, "TokenWithdrawn")
-            .withArgs(erc20Mock.address, 100, await addr1.getAddress());
+            .withArgs(await erc20Mock.getAddress(), 100, await addr1.getAddress());
 
         const finalBalance = await erc20Mock.balanceOf(await addr1.getAddress());
-        expect(finalBalance.sub(initialBalance)).to.equal(100);
+        expect(finalBalance - initialBalance).to.equal(100n);
     });
 
     it("Should reject ERC20 token transfers if transfer amount exceeds balance", async function () {
-        await erc20Mock.transfer(superPiccellCore.address, 100);
+        await erc20Mock.transfer(await superPiccellCore.getAddress(), 100);
 
-        await expect(superPiccellCore.withdrawToken(erc20Mock.address, 200, await addr1.getAddress()))
-            .to.be.revertedWith("ERC20: transfer amount exceeds balance");
+        await expect(superPiccellCore.withdrawToken(await erc20Mock.getAddress(), 200, await addr1.getAddress()))
+            .to.be.revertedWithCustomError(erc20Mock, "ERC20InsufficientBalance");
     });
 
     it("Should not allow non-owner to withdraw tokens", async function () {
-        await erc20Mock.transfer(superPiccellCore.address, 100);
+        await erc20Mock.transfer(await superPiccellCore.getAddress(), 100);
 
-        await expect(superPiccellCore.connect(addr1).withdrawToken(erc20Mock.address, 100, await addr1.getAddress()))
-            .to.be.revertedWith("Ownable: caller is not the owner");
+        await expect((superPiccellCore.connect(addr1) as Contract).withdrawToken(await erc20Mock.getAddress(), 100, await addr1.getAddress()))
+            .to.be.revertedWithCustomError(superPiccellCore, "OwnableUnauthorizedAccount")
+            .withArgs(await addr1.getAddress());
     });
 
     it("Should fail to withdraw ERC20 tokens if transfer returns false", async function () {
-        await erc20Mock.transfer(superPiccellCore.address, 100);
+        await erc20Mock.transfer(await superPiccellCore.getAddress(), 100);
         await erc20Mock.setTransferFail(true);
 
-        await expect(superPiccellCore.withdrawToken(erc20Mock.address, 100, await addr1.getAddress()))
+        await expect(superPiccellCore.withdrawToken(await erc20Mock.getAddress(), 100, await addr1.getAddress()))
             .to.be.revertedWith("Transfer failed");
 
         await erc20Mock.setTransferFail(false); // Reset state

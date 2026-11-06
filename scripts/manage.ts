@@ -1,5 +1,4 @@
-import { ethers } from 'ethers';
-import { ContractTransaction } from '@ethersproject/contracts';
+import { ethers, type ContractTransactionResponse } from 'ethers';
 import { readFileSync } from "fs";
 import { program, Option } from 'commander';
 import * as dotenv from 'dotenv';
@@ -12,14 +11,16 @@ function readJsonContent(filePath: string) {
 
 async function main(contractAddress: string, action: string, jsonFilePath: string | null, contentId: number | null) {
     const privateKey: string = process.env.PRIVATE_KEY ?? "";
-    const provider = new ethers.providers.JsonRpcProvider(process.env.NETWORK_URL);
+    // Disable the provider response cache (250ms by default): on chains that mine instantly it can
+    // return a stale nonce for the next transaction in a batch and fail with NONCE_EXPIRED.
+    const provider = new ethers.JsonRpcProvider(process.env.NETWORK_URL, undefined, { cacheTimeout: -1 });
     const signer = new ethers.Wallet(privateKey, provider);
 
-    const artifact = require("../artifacts/contracts/SuperPiccellCore.sol/SuperPiccellCore.json");
+    const artifact = JSON.parse(readFileSync('./artifacts/contracts/SuperPiccellCore.sol/SuperPiccellCore.json', 'utf-8'));
     const superPiccellCore = new ethers.Contract(contractAddress, artifact.abi, signer);
 
     if (action === "protect") {
-        const tx: ContractTransaction = await superPiccellCore.protectContract();
+        const tx: ContractTransactionResponse = await superPiccellCore.protectContract();
         const receipt = await tx.wait();
         console.log("Contract protected successfully");
     } else if (action === "checkContractProtection") {
@@ -30,7 +31,7 @@ async function main(contractAddress: string, action: string, jsonFilePath: strin
             console.error("No content ID provided for protectContent action");
             return;
         }
-        const tx: ContractTransaction = await superPiccellCore.protectContent(contentId);
+        const tx: ContractTransactionResponse = await superPiccellCore.protectContent(contentId);
         const receipt = await tx.wait();
         console.log(`Content with ID ${contentId} protected successfully`);
     } else if (action === "checkContentProtection") {
@@ -45,7 +46,7 @@ async function main(contractAddress: string, action: string, jsonFilePath: strin
             console.error("No content ID provided for delete action");
             return;
         }
-        const tx: ContractTransaction = await superPiccellCore.deleteContent(contentId);
+        const tx: ContractTransactionResponse = await superPiccellCore.deleteContent(contentId);
         const receipt = await tx.wait();
         console.log(`Content with ID ${contentId} deleted successfully`);
     } else {
@@ -59,7 +60,7 @@ async function main(contractAddress: string, action: string, jsonFilePath: strin
         for (let content of contents) {
             if (action === "create") {
                 const contentString = JSON.stringify(content.content);
-                const tx: ContractTransaction = await superPiccellCore.createContent(content.encoding, content.contentType, contentString, content.revision);
+                const tx: ContractTransactionResponse = await superPiccellCore.createContent(content.encoding, content.contentType, contentString, content.revision);
                 const receipt = await tx.wait();
                 console.log("Content created successfully");
             } else if (action === "update") {
@@ -68,7 +69,7 @@ async function main(contractAddress: string, action: string, jsonFilePath: strin
                     return;
                 }
                 const contentString = JSON.stringify(content.content);
-                const tx: ContractTransaction = await superPiccellCore.updateContent(content.id, contentString);
+                const tx: ContractTransactionResponse = await superPiccellCore.updateContent(content.id, contentString);
                 const receipt = await tx.wait();
                 console.log("Content updated successfully");
             } else {

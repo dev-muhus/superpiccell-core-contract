@@ -1,0 +1,21 @@
+# Secrets and local notes must never be baked into an image.
+# docker-compose bind-mounts the project at runtime, so these remain available there.
+.env
+.env.*
+MEMO.md
+
+# Regenerated inside the container
+node_modules
+artifacts
+cache
+typechain-types
+coverage
+coverage.json
+tmp
+
+# Not needed in the backend image
+.git
+.claude
+frontend
+.DS_Store
+*.log

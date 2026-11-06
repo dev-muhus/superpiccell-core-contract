@@ -1,20 +1,25 @@
-import { HardhatUserConfig } from "hardhat/config";
-import "@nomicfoundation/hardhat-toolbox";
-import * as dotenv from "dotenv";
+import "dotenv/config";
+import hardhatEthers from "@nomicfoundation/hardhat-ethers";
+import hardhatEthersChaiMatchers from "@nomicfoundation/hardhat-ethers-chai-matchers";
+import hardhatMocha from "@nomicfoundation/hardhat-mocha";
+import hardhatVerify from "@nomicfoundation/hardhat-verify";
+import { configVariable, defineConfig } from "hardhat/config";
 
-dotenv.config();
-
-const config: HardhatUserConfig = {
+export default defineConfig({
+  plugins: [hardhatEthers, hardhatEthersChaiMatchers, hardhatMocha, hardhatVerify],
   solidity: "0.8.21",
   networks: {
     sepolia: {
-      url: process.env.NETWORK_URL || "",
-      accounts: [process.env.PRIVATE_KEY || ""],
+      type: "http",
+      chainType: "l1",
+      // Resolved lazily: secrets are only read when a command actually connects to Sepolia.
+      url: configVariable("NETWORK_URL"),
+      accounts: [configVariable("PRIVATE_KEY")],
     },
   },
-  etherscan: {
-    apiKey: process.env.ETHERSCAN_API_KEY,
+  verify: {
+    etherscan: {
+      apiKey: configVariable("ETHERSCAN_API_KEY"),
+    },
   },
-};
-
-export default config;
+});

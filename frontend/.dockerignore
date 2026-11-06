@@ -1,0 +1,13 @@
+# Secrets must never be baked into an image.
+# docker-compose bind-mounts the project at runtime, so these remain available there.
+.env
+.env.*
+
+# Regenerated inside the container
+node_modules
+.next
+out
+coverage
+
+.DS_Store
+*.log

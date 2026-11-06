@@ -11,7 +11,7 @@ This project is a demonstration of a full-stack dApp (decentralized application)
 
 ## Prerequisites
 
-- Node.js (v14 or higher)
+- Node.js (v22 or higher)
 - Docker
 - MetaMask extension
 
@@ -80,58 +80,58 @@ To run the main tasks, use the following commands:
 ### Deploy the contract:
 
 ```shell
-npx ts-node scripts/deploy.ts
+npx tsx scripts/deploy.ts
 ```
 
 ### Manage contents:
 
 - Create content:
 ```shell
-npx ts-node scripts/manage.ts --contractAddress 0xContractAddress --action create --jsonFilePath /path/to/your/jsonfile.json
+npx tsx scripts/manage.ts --contractAddress 0xContractAddress --action create --jsonFilePath /path/to/your/jsonfile.json
 ```
 
 - Delete content:
 ```shell
-npx ts-node scripts/manage.ts --contractAddress 0xContractAddress --action delete --contentId 1
+npx tsx scripts/manage.ts --contractAddress 0xContractAddress --action delete --contentId 1
 ```
 
 ### Protect and Check Protection:
 
 - Switch the contract to protected mode:
 ```shell
-npx ts-node scripts/manage.ts --contractAddress 0xContractAddress --action protect
+npx tsx scripts/manage.ts --contractAddress 0xContractAddress --action protect
 ```
 
 - Check if the contract is in protected mode:
 ```shell
-npx ts-node scripts/manage.ts --contractAddress 0xContractAddress --action checkContractProtection
+npx tsx scripts/manage.ts --contractAddress 0xContractAddress --action checkContractProtection
 ```
 
 - Protect a specific content:
 ```shell
-npx ts-node scripts/manage.ts --contractAddress 0xContractAddress --action protectContent --contentId 0
+npx tsx scripts/manage.ts --contractAddress 0xContractAddress --action protectContent --contentId 0
 ```
 
 - Check if a specific content is protected:
 ```shell
-npx ts-node scripts/manage.ts --contractAddress 0xContractAddress --action checkContentProtection --contentId 0
+npx tsx scripts/manage.ts --contractAddress 0xContractAddress --action checkContentProtection --contentId 0
 ```
 
 ### Fetch contents:
 
 - Fetch all contents:
 ```shell
-npx ts-node scripts/fetch.ts --contractAddress 0xContractAddress
+npx tsx scripts/fetch.ts --contractAddress 0xContractAddress
 ```
 
 - Fetch contents with a specific contentType:
 ```shell
-npx ts-node scripts/fetch.ts --contractAddress 0xContractAddress --contentType Character
+npx tsx scripts/fetch.ts --contractAddress 0xContractAddress --contentType Character
 ```
 
 - Fetch a single content:
 ```shell
-npx ts-node scripts/fetch.ts --contractAddress 0xContractAddress --contentId 0
+npx tsx scripts/fetch.ts --contractAddress 0xContractAddress --contentId 0
 ```
 
 ## Frontend Components

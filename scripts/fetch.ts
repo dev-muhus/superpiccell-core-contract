@@ -13,7 +13,7 @@ function getContractAbi(): any {
 
 async function main(contractAddress: string, contentId: number, contentType: string | undefined) {
     const privateKey: string = process.env.PRIVATE_KEY ?? "";
-    const provider = new ethers.providers.JsonRpcProvider(process.env.NETWORK_URL);
+    const provider = new ethers.JsonRpcProvider(process.env.NETWORK_URL);
     const signer = new ethers.Wallet(privateKey, provider);
 
     const abi = getContractAbi();
@@ -26,8 +26,8 @@ async function main(contractAddress: string, contentId: number, contentType: str
         console.log(`Content Type: ${content.contentType}`);
         console.log(`Content: ${content.content}`);
         console.log(`Revision: ${content.revision}`);
-        console.log(`Created At: ${new Date(content.createdAt.toNumber() * 1000)}`);
-        console.log(`Updated At: ${new Date(content.updatedAt.toNumber() * 1000)}`);
+        console.log(`Created At: ${new Date(Number(content.createdAt) * 1000)}`);
+        console.log(`Updated At: ${new Date(Number(content.updatedAt) * 1000)}`);
     } else {
         let totalContents;
         if (contentType) {
@@ -41,8 +41,8 @@ async function main(contractAddress: string, contentId: number, contentType: str
             console.log(`Content Type: ${totalContents[i].contentType}`);
             console.log(`Content: ${totalContents[i].content}`);
             console.log(`Revision: ${totalContents[i].revision}`);
-            console.log(`Created At: ${new Date(totalContents[i].createdAt.toNumber() * 1000)}`);
-            console.log(`Updated At: ${new Date(totalContents[i].updatedAt.toNumber() * 1000)}`);
+            console.log(`Created At: ${new Date(Number(totalContents[i].createdAt) * 1000)}`);
+            console.log(`Updated At: ${new Date(Number(totalContents[i].updatedAt) * 1000)}`);
         }
     }
 }

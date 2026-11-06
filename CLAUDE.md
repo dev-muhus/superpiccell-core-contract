@@ -42,38 +42,38 @@ npm ci
 
 ### Contract Deployment
 ```bash
-npx ts-node scripts/deploy.ts
+npx tsx scripts/deploy.ts
 ```
 
 ### Content Management
 ```bash
 # Create content from JSON file
-npx ts-node scripts/manage.ts --contractAddress 0x[ADDRESS] --action create --jsonFilePath /path/to/file.json
+npx tsx scripts/manage.ts --contractAddress 0x[ADDRESS] --action create --jsonFilePath /path/to/file.json
 
 # Delete content
-npx ts-node scripts/manage.ts --contractAddress 0x[ADDRESS] --action delete --contentId [ID]
+npx tsx scripts/manage.ts --contractAddress 0x[ADDRESS] --action delete --contentId [ID]
 
 # Protect contract (makes it read-only)
-npx ts-node scripts/manage.ts --contractAddress 0x[ADDRESS] --action protect
+npx tsx scripts/manage.ts --contractAddress 0x[ADDRESS] --action protect
 
 # Protect specific content
-npx ts-node scripts/manage.ts --contractAddress 0x[ADDRESS] --action protectContent --contentId [ID]
+npx tsx scripts/manage.ts --contractAddress 0x[ADDRESS] --action protectContent --contentId [ID]
 
 # Check protection status
-npx ts-node scripts/manage.ts --contractAddress 0x[ADDRESS] --action checkContractProtection
-npx ts-node scripts/manage.ts --contractAddress 0x[ADDRESS] --action checkContentProtection --contentId [ID]
+npx tsx scripts/manage.ts --contractAddress 0x[ADDRESS] --action checkContractProtection
+npx tsx scripts/manage.ts --contractAddress 0x[ADDRESS] --action checkContentProtection --contentId [ID]
 ```
 
 ### Fetching Content
 ```bash
 # Fetch all contents
-npx ts-node scripts/fetch.ts --contractAddress 0x[ADDRESS]
+npx tsx scripts/fetch.ts --contractAddress 0x[ADDRESS]
 
 # Fetch by content type
-npx ts-node scripts/fetch.ts --contractAddress 0x[ADDRESS] --contentType Character
+npx tsx scripts/fetch.ts --contractAddress 0x[ADDRESS] --contentType Character
 
 # Fetch single content
-npx ts-node scripts/fetch.ts --contractAddress 0x[ADDRESS] --contentId [ID]
+npx tsx scripts/fetch.ts --contractAddress 0x[ADDRESS] --contentId [ID]
 ```
 
 ### Testing
@@ -113,7 +113,7 @@ The system manages various content types found in `scripts/import/`:
 
 ### Frontend Architecture
 - Next.js application in `frontend/` directory
-- Uses ethers.js v5 for blockchain interaction
+- Uses ethers.js v6 for blockchain interaction
 - Fetches and displays content from the smart contract
 - Separate configuration via `frontend/.env.local`
 
@@ -135,3 +135,14 @@ Two separate `.env` files are required:
 - Configured for Sepolia testnet in `hardhat.config.ts`
 - Solidity compiler version: 0.8.21
 - Etherscan integration for contract verification
+
+## Dependency Notes
+
+`package.json` cannot hold comments, so the reasons for non-obvious pins are recorded here.
+
+- **`overrides.zod` (root)**: Hardhat 3 declares `zod ^3`, but GHSA-mrhx-c7xc-m3w5 is only fixed in 4.x. Hardhat uses zod solely to validate the local `hardhat.config.ts`. Side effect: an invalid config still aborts, but prints `TypeError: Cannot read properties of undefined (reading 'map')` from `validateUserConfigZodType` instead of a validation message. If you see that error, check `hardhat.config.ts`. Remove the override once Hardhat supports zod 4.
+- **`overrides.mocha` (root) / `overrides.minimatch@>=7.0.0` (frontend)**: force patched `glob` and `minimatch` (GHSA-3g3m-2fjr-6pw4, GHSA-g3hv-75wg-m249). Remove once the parent packages depend on patched versions.
+- **`overrides.eslint` (frontend)**: `eslint-plugin-react` and related plugins do not declare ESLint 10 in their peer ranges yet. Remove once they do.
+- **React 18.3.1 (frontend)**: kept deliberately. React 19 adds about 23.5 kB gzip to the page with no security gain today. Next.js 16 warns that React 18 is deprecated and Next.js 17 removes support, so upgrade React before moving to Next.js 17.
+- **`frontend/src/utils/SuperPiccellCore.json`**: ABI only, to keep bytecode out of the client bundle. It is older than the current contract source (for example it has `withdraw` but not `protectContent`); the client only calls `getAllContents`, whose struct matches.
+- **Secrets**: `.env` holds a real private key, so run tests and local checks without it where possible. `npx hardhat test` needs no secrets.

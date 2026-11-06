@@ -1,4 +1,5 @@
 import { ethers } from 'ethers';
+import { readFileSync } from 'fs';
 import * as dotenv from 'dotenv';
 dotenv.config();
 
@@ -12,17 +13,17 @@ async function main() {
         throw new Error('No value set for environment variable NETWORK_URL');
     }
 
-    const provider = new ethers.providers.JsonRpcProvider(rpcUrl);
+    const provider = new ethers.JsonRpcProvider(rpcUrl);
     const signer = new ethers.Wallet(privateKey, provider);
     
-    const artifact = require("../artifacts/contracts/SuperPiccellCore.sol/SuperPiccellCore.json");
+    const artifact = JSON.parse(readFileSync('./artifacts/contracts/SuperPiccellCore.sol/SuperPiccellCore.json', 'utf-8'));
     const factory = new ethers.ContractFactory(artifact.abi, artifact.bytecode, signer);
     
     const superPiccellCore = await factory.deploy();
     
-    console.log(`SuperPiccellCore contract deploy address ${superPiccellCore.address}`);
-    console.log(`Transaction URL: https://${process.env.NETWORK_NAME}.etherscan.io/tx/${superPiccellCore.deployTransaction.hash}`);
-    await superPiccellCore.deployed();
+    console.log(`SuperPiccellCore contract deploy address ${await superPiccellCore.getAddress()}`);
+    console.log(`Transaction URL: https://${process.env.NETWORK_NAME}.etherscan.io/tx/${superPiccellCore.deploymentTransaction()?.hash}`);
+    await superPiccellCore.waitForDeployment();
     console.log(`Deploy completed`);
 }
 

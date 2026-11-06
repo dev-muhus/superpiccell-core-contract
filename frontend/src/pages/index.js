@@ -1,12 +1,8 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { ethers } from 'ethers';
+import { BrowserProvider } from 'ethers';
 import { fetchContents } from '../utils/fetchContents';
-import Modal from 'react-modal';
-
-Modal.setAppElement('#__next')
 
 export default function Home() {
-  const [provider, setProvider] = useState(null);
   const [contents, setContents] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [expandedId, setExpandedId] = useState(null);
@@ -14,46 +10,36 @@ export default function Home() {
   const headerRef = useRef(null);
 
   useEffect(() => {
+    // Refresh the contents on connect and whenever the account or network changes
+    const loadContents = () => {
+      setIsLoading(true);
+      fetchContents()
+        .then(contents => {
+          setContents(contents);
+          setIsLoading(false);
+        })
+        .catch(error => {
+          console.error(error);
+          setIsLoading(false);
+        });
+    };
+
     if (typeof window !== 'undefined' && window.ethereum) {
       window.ethereum.request({ method: 'eth_requestAccounts' })
       .then(() => {
-        const provider = new ethers.providers.Web3Provider(window.ethereum);
-        setProvider(provider);
+        const provider = new BrowserProvider(window.ethereum);
 
         provider.getNetwork().then(network => {
-          if (network.chainId !== parseInt(process.env.NEXT_PUBLIC_NETWORK_ID)) {
+          if (Number(network.chainId) !== parseInt(process.env.NEXT_PUBLIC_NETWORK_ID)) {
             alert(`Your wallet is connected to the wrong chain. Please switch to the ${process.env.NEXT_PUBLIC_NETWORK_NAME} chain.`);
           }
         });
 
-        // Add event listeners
-        window.ethereum.on('accountsChanged', () => {
-          // When the accounts change, refresh the contents
-          setIsLoading(true);
-          fetchContents(provider)
-            .then(contents => {
-              setContents(contents);
-              setIsLoading(false);
-            })
-            .catch(error => {
-              console.error(error);
-              setIsLoading(false);
-            });
-        });
+        loadContents();
 
-        window.ethereum.on('chainChanged', () => {
-          // When the network changes, refresh the contents
-          setIsLoading(true);
-          fetchContents(provider)
-            .then(contents => {
-              setContents(contents);
-              setIsLoading(false);
-            })
-            .catch(error => {
-              console.error(error);
-              setIsLoading(false);
-            });
-        });
+        // Add event listeners
+        window.ethereum.on('accountsChanged', loadContents);
+        window.ethereum.on('chainChanged', loadContents);
       })
       .catch((error) => {
         console.log(error);
@@ -65,8 +51,8 @@ export default function Home() {
     // Clean up the event listeners on component unmount
     return () => {
       if (window.ethereum) {
-        window.ethereum.removeListener('accountsChanged');
-        window.ethereum.removeListener('chainChanged');
+        window.ethereum.removeListener('accountsChanged', loadContents);
+        window.ethereum.removeListener('chainChanged', loadContents);
       }
     };
   }, []);
@@ -87,21 +73,6 @@ export default function Home() {
     window.addEventListener('scroll', checkScrollTop)
     return () => window.removeEventListener('scroll', checkScrollTop)
   }, [checkScrollTop]);
-
-  useEffect(() => {
-    if (provider) {
-      setIsLoading(true);
-      fetchContents(provider)
-        .then(contents => {
-          setContents(contents);
-          setIsLoading(false);
-        })
-        .catch(error => {
-          console.error(error);
-          setIsLoading(false);
-        });
-    }
-  }, [provider]);
 
   const toggleDetails = (id) => {
     setExpandedId(expandedId === id ? null : id);
@@ -170,7 +141,7 @@ export default function Home() {
                   <p>Encoding: {content.encoding}</p>
                   <p>Content Type: {content.contentType}</p>
                   <p>Revision: {content.revision}</p>
-                  <p>Created at: {new Date(content.createdAt * 1000).toLocaleString()}</p>
+                  <p>Created at: {new Date(Number(content.createdAt) * 1000).toLocaleString()}</p>
                   <p>Updated by: {content.updatedBy}</p>
                 </div>
               )}
